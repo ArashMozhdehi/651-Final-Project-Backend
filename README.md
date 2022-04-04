@@ -1,5 +1,13 @@
 # Bike Assistant
 
+<table>
+<tr>
+<td>
+A mobile map application to explore cycling related amenities and destinations in the city of Calgary. It also provides road condition warning notification and carlories burned statistic for user.
+</td>
+</tr>
+</table>
+
 ## 1. Introduction
 “Bike Assistant” mobile application aims to provide an aesthetically pleasing and animated UI for cyclists in Calgary to have one-stop supporting service during their journey. The goal of this project is to provide a more convenient, fun and safer cycling experience for Calgarians.
 
@@ -7,7 +15,7 @@
 The following technologies are adopted for this project:
 - RESTful API powered by Flask library of Python;
 - Backend application developed by Flask library of Python;
-- Database design by PostgreSQL RDBMS and hosted in heroku.
+- Database design by PostgreSQL RDBMS and hosted in heroku;
 - Distance travelled calculation by Haversine Distance library of Python;
 - Google Places and Geocoding APIs.
 
