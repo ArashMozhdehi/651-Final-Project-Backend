@@ -1,3 +1,4 @@
+![Banner](/images/banner.png) 
 # Bike Assistant :bicyclist: :biking_woman:
 
 ## Table of Contents
