@@ -1,7 +1,7 @@
 import os, requests, hashlib, json
 from random import getrandbits
 from datetime import datetime, timedelta
-from flask import Flask, session, render_template, request, make_response, abort
+from flask import Flask, session, render_template, request, make_response, abort, send_from_directory
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
@@ -14,7 +14,7 @@ from haversine import haversine
 import pandas as pd
 import math
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../htmls')
 app.secret_key = "secret"
 
 DATABASE_URL = "postgresql://icnbjzbcznpgfp:a952b3bdc51644c4fb224f2dd8a7c358bc6a6e2fcf80a57a5e0d4956808d02a6@ec2-54-226-18-238.compute-1.amazonaws.com:5432/dbeqq9egku7fm5"
@@ -32,6 +32,45 @@ if __name__ == '__main__':
 
 def resource_not_found(e):
     return jsonify(error=str(e)), 404
+
+
+@app.route('/images/<path:filename>')
+def base_static_images(filename):
+    return send_from_directory(app.root_path + '/images/', filename)
+
+@app.route('/vendor/<path:filename>')
+def base_static_vendor(filename):
+    return send_from_directory(app.root_path + '/vendor/', filename)
+
+@app.route('/fonts/<path:filename>')
+def base_static_fonts(filename):
+    return send_from_directory(app.root_path + '/fonts/', filename)
+
+@app.route('/scripts/<path:filename>')
+def base_static_scripts(filename):
+    return send_from_directory(app.root_path + '/scripts/', filename)
+
+@app.route('/styles/<path:filename>')
+def base_static_styles(filename):
+    return send_from_directory(app.root_path + '/styles/', filename)
+
+@app.route("/", methods=["GET", "POST"])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        user = db.execute("SELECT f_name, l_name, token, users.username FROM users, cell_tokens WHERE cell_tokens.username=users.username AND users.username = :username AND password = :password",
+                    {"username": username, "password": password}).fetchone()
+
+        # query_str = '?token='+user['token']+'&'+'username='+user['username']
+        # print(query_str)
+        if user != None and len(user) > 0:
+            return render_template("main.html", token=user['token'], username=user['username'])
+        else:
+            return render_template("index.html", message="error")
+    else:
+        return render_template("index.html")
+
 
 @app.route("/api/signin", methods=["GET"])#ok
 def cell_signin_api():
@@ -245,7 +284,6 @@ def gotowater():
         else:
             res = json.dumps({"message":"error"})
     except SQLAlchemyError as e:
-        print(e.message)
         res = json.dumps({"message":"error"})
         res = json.loads(res)
     res = json.dumps({"message":"error"})
@@ -436,7 +474,6 @@ def feedback():
         res = json.loads(res)
         return res
     except SQLAlchemyError as e:
-        print(e.message)
         res = '{"message":"' + 'error' + '"}'
         res = json.loads(res)
         return res
@@ -461,7 +498,6 @@ def location_update():
         res = json.loads(res)
         return res
     except SQLAlchemyError as e:
-        print(e.message)
         res = '{"message":"' + 'error' + '"}'
         res = json.loads(res)
         return res
@@ -512,11 +548,53 @@ def get_stats():
         # print(this_week_cals)
         # print(this_month_cals)
         res = json.dumps({"message":"success", "weekly":this_week_cals, "monthly":this_month_cals})
+        # print(res)
         res = json.loads(res)
         return res
     except Exception as e:
-        print(e.message)
         res = json.loads('{"message":"' + 'error' + '"}')
         return res
-    res = json.loads('{"message":"' + 'success' + '"}')
+    res = json.loads('{"message":"' + 'error' + '"}')
+    return res
+
+
+@app.route("/api/get_range_stats", methods=["GET"])
+def get_range_stats():
+    token = request.args.get('token')
+    start = request.args.get('start')
+    end = request.args.get('end')
+    username = cell_auth(token)
+    startDate = datetime.strptime(start, "%Y-%m-%d")
+    endDate = datetime.strptime(end, "%Y-%m-%d")
+    days = (endDate - startDate).days + 1
+    dateArray = [0] * days
+    overall_time = [0] * days
+    overall_dist = [0] * days
+    # dateArray = [randint(0,4000)] * days
+    weight = db.execute("SELECT weight FROM public.users WHERE username = :username",
+        {"username": username}).fetchone()['weight']
+    entries = db.execute("SELECT date_trunc('day', timestamp)::date date, timestamp, lat, lng FROM public.trajectories WHERE date_trunc('day', timestamp) >= :startDate AND date_trunc('day', timestamp) <= :endDate AND username = :username order by date desc",
+        {"username": username, "startDate":startDate, "endDate":endDate})
+    df = pd.DataFrame(entries, columns=['date', 'timestamp', 'lat', 'lng'])
+    try:
+        prev = df.iloc[0]
+        for index, entry in df[1:].iterrows():
+            x = (prev['lat'], prev['lng'])
+            y = (entry['lat'], entry['lng'])
+            a=datetime.strptime(str(prev['timestamp']), "%Y-%m-%d %H:%M:%S")
+            b=a-datetime.strptime(str(entry['timestamp']), "%Y-%m-%d %H:%M:%S")
+            td=abs(b.total_seconds())
+            a=datetime.strptime(str(entry['date']), "%Y-%m-%d")
+            b=startDate-a
+            dd=abs(b.days)
+            if(str(prev['date']) == str(entry['date']) and abs(td) < 10800):
+                overall_dist[dd] += abs(haversine(x, y) * 1000)
+                overall_time[dd] += abs(td)
+            dateArray = [7.2 * weight * entry / 3600 for entry in overall_time]
+            prev = entry
+    except:
+        pass
+    res = json.dumps({"message":"success","days":len(dateArray), "data":dateArray, "average":sum(dateArray)/len(dateArray), "total":sum(dateArray)})
+    print(res)
+    res = json.loads(res)
     return res

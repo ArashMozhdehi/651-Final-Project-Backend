@@ -1,0 +1,30 @@
+#map-canvas {
+  height: 100%;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.map-control {
+  padding: 200px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);
+  font-family: "Roboto", "sans-serif";
+  margin: 10px;
+  display: none;
+}
+
+#map-canvas .map-control {
+  display: block;
+}
+
+.selector-control {
+  padding: 200px;
+  font-size: 14px;
+  line-height: 30px;
+  vertical-align: baseline;
+}
