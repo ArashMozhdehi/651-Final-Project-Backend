@@ -119,8 +119,10 @@ function sub_topics() {
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
   });
-  let token = params.token;
-  let username = params.username;
+  // let token = params.token;
+  // let username = params.username;
+  let token = document.getElementById('token').value
+  let username = document.getElementById('username').value
   if (connected == 0) {
     out_msg = "Not connected so can't subscribe"
     console.log(out_msg);
