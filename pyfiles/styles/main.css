@@ -194,19 +194,26 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background: #9053c7;
+
+  /* background: #9053c7;
   background: -webkit-linear-gradient(-135deg, #BD33A4, #7303c0);
   background: -o-linear-gradient(-135deg, #ff00cc, #7303c0);
   background: -moz-linear-gradient(-135deg, #BD33A4, #7303c0);
-  background: linear-gradient(-135deg, #ff00cc, #7303c0);
+  background: linear-gradient(-135deg, #ff00cc, #7303c0); */
+   background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url("https://newmarketcms.azureedge.net/media/7993/gettyimages-516019979-sunrise-over-amsterdam-netherlands.jpg");
+   background-position: center center;
+background-repeat: no-repeat;
+/* filter: grayscale(100%) brightness(70%) sepia(50%) hue-rotate(-100deg) saturate(500%) contrast(1); */
+ background-blend-mode: darken;
+   /* background-color: #555555; */
+   opacity:0.9;
 }
 
 .wrap-login100 {
   width: 960px;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 20px;
   overflow: hidden;
-
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -215,6 +222,8 @@ iframe {
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 80px 90px 33px 50px;
+  /* backdrop-filter: grayscale(0.5) opacity(0.8); */
+  /* background: #f4f1fa; */
 }
 
 /*------------------------------------------------------------------

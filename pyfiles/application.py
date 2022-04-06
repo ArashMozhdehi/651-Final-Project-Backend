@@ -14,7 +14,7 @@ from haversine import haversine
 import pandas as pd
 import math
 
-app = Flask(__name__, template_folder='../htmls')
+app = Flask(__name__, template_folder='./htmls')
 app.secret_key = "secret"
 
 DATABASE_URL = "postgresql://icnbjzbcznpgfp:a952b3bdc51644c4fb224f2dd8a7c358bc6a6e2fcf80a57a5e0d4956808d02a6@ec2-54-226-18-238.compute-1.amazonaws.com:5432/dbeqq9egku7fm5"
