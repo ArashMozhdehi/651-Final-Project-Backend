@@ -167,7 +167,7 @@ function showlocation(locationText) {
     let speed = parseFloat(json.speed);
     map = new google.maps.Map(document.getElementById('map-canvas'), {
       center: { lat: (cur_lat+dst_lat)/2, lng: (dst_lng+cur_lng)/2},
-      zoom: 13.5,
+      zoom: 13.3,
       styles: styles["hide"]
     });
 
