@@ -26,9 +26,8 @@ Session(app)
 engine = create_engine(DATABASE_URL)
 db = scoped_session(sessionmaker(bind=engine))
 
+port = int(os.environ.get('PORT', 5000))
 
-if __name__ == '__main__':
-    app.run(host= '0.0.0.0',debug=True)
 
 def resource_not_found(e):
     return jsonify(error=str(e)), 404
