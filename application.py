@@ -13,16 +13,45 @@ from random import randint
 from haversine import haversine
 import pandas as pd
 import math
+import pyrebase
+from urllib.request import urlopen
+# from firebase import firebase
 
 app = Flask(__name__, template_folder='./htmls')
 app.secret_key = "secret"
 
-DATABASE_URL = "postgresql://icnbjzbcznpgfp:a952b3bdc51644c4fb224f2dd8a7c358bc6a6e2fcf80a57a5e0d4956808d02a6@ec2-54-226-18-238.compute-1.amazonaws.com:5432/dbeqq9egku7fm5"
 
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+
+config = {
+  "apiKey": "AIzaSyCmj02DX8-_GpQiMc35-VUis84LLk4FGcU",
+  "authDomain": "engo-651-final-project-backend.firebaseapp.com",
+  "projectId": "engo-651-final-project-backend",
+  "storageBucket": "engo-651-final-project-backend.appspot.com",
+  "messagingSenderId": "71557889320",
+  "appId": "1:71557889320:web:6caaf6c9f4ff048656641d",
+  "measurementId": "G-8N04YJH53F",
+  "databaseURL": "https://engo-651-final-project-default-rtdb.firebaseio.com/"
+}
+
+firbase = pyrebase.initialize_app(config)
+database = firbase.database()
+
+
+# firebase = firebase.FirebaseApplication("https://engo-651-final-project-default-rtdb.firebaseio.com/", None)
+
+
+
+
+
+
+
+
+
+DATABASE_URL = "postgresql://icnbjzbcznpgfp:a952b3bdc51644c4fb224f2dd8a7c358bc6a6e2fcf80a57a5e0d4956808d02a6@ec2-54-226-18-238.compute-1.amazonaws.com:5432/dbeqq9egku7fm5"
 engine = create_engine(DATABASE_URL)
 db = scoped_session(sessionmaker(bind=engine))
 
@@ -51,37 +80,109 @@ def base_static_scripts(filename):
 def base_static_styles(filename):
     return send_from_directory(app.root_path + '/styles/', filename)
 
+def cell_auth(token):
+    try:
+        user = database.child("tokens").child(token).child("username").get().val()
+        if user != None:
+            return user
+        else:
+            return False
+            # print(False)
+    except:
+        return False
+
+# @app.route("/", methods=["GET", "POST"])
+# def login():
+#     if request.method == 'POST':
+#         username = request.form.get('username')
+#         password = request.form.get('password')
+#         user = db.execute("SELECT f_name, l_name, token, users.username FROM users, cell_tokens WHERE cell_tokens.username=users.username AND users.username = :username AND password = :password",
+#                     {"username": username, "password": password}).fetchone()
+#
+#         # query_str = '?token='+user['token']+'&'+'username='+user['username']
+#         # print(query_str)
+#         if user != None and len(user) > 0:
+#             return render_template("main.html", token=user['token'], username=user['username'])
+#         else:
+#             return render_template("index.html", message="error")
+#     else:
+#         return render_template("index.html")
+
+
+# @app.route("/api/signin", methods=["GET"])#ok
+# def cell_signin_api():
+#     try:
+#         username = request.args.get('username')
+#         password = request.args.get('password')
+#         user = db.execute("SELECT f_name, l_name FROM users WHERE username = :username AND password = :password",
+#                     {"username": username, "password": password}).fetchone()
+#         if user != None and len(user) > 0:
+#             token = hashlib.md5(str(getrandbits(128)).encode('utf-8')).hexdigest()
+#             db.execute("INSERT INTO cell_tokens (username, token) VALUES (:username, :token)",
+#                 {"username": username, "token": token})
+#             db.commit()
+#             res = '{"f_name":"' + user['f_name'] + '", "l_name":"' + user['l_name'] + '", "token":"' + token + '",' + '"message":"' + 'success' + '"}'
+#             res = json.loads(res)
+#             print(res)
+#             return res
+#         else:
+#             res = '{"message":"' + 'Incorrect login' + '"}'
+#             res = json.loads(res)
+#             print(res)
+#             return res
+#     except SQLAlchemyError as e:
+#         res = '{"message":"' + 'Error encountered ' + str(e.__dict__['orig']) + '"}'
+#         res = json.loads(res)
+#         print(res)
+#         return res
+
 @app.route("/", methods=["GET", "POST"])
 def login():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        user = db.execute("SELECT f_name, l_name, token, users.username FROM users, cell_tokens WHERE cell_tokens.username=users.username AND users.username = :username AND password = :password",
-                    {"username": username, "password": password}).fetchone()
-
-        # query_str = '?token='+user['token']+'&'+'username='+user['username']
-        # print(query_str)
-        if user != None and len(user) > 0:
-            return render_template("main.html", token=user['token'], username=user['username'])
+    try:
+        if request.method == 'POST':
+            username = request.form.get('username')
+            password = request.form.get('password')
+            password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+            passw = database.child("users").child(username).child('password').get().val()
+            if passw != None and len(passw) > 0 and passw == password:
+                # db.execute("INSERT INTO cell_tokens (username, token) VALUES (:username, :token)",
+                    # {"username": username, "token": token})
+                # db.commit()
+                query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/tokens.json?orderBy=%22username%22&equalTo=%22" + username + "%22"
+                reqs = json.load(urlopen(query_string))
+                keys = [k  for  k in  reqs.keys()]
+                token = keys[0]
+                # print(keys[0])
+                return render_template("main.html", token=token, username=username)
+            else:
+                return render_template("index.html", message="error")
         else:
-            return render_template("index.html", message="error")
-    else:
-        return render_template("index.html")
-
+            return render_template("index.html")
+    except:
+        return render_template("index.html", message="error")
 
 @app.route("/api/signin", methods=["GET"])#ok
 def cell_signin_api():
     try:
         username = request.args.get('username')
         password = request.args.get('password')
-        user = db.execute("SELECT f_name, l_name FROM users WHERE username = :username AND password = :password",
-                    {"username": username, "password": password}).fetchone()
-        if user != None and len(user) > 0:
+        password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        # user = db.execute("SELECT f_name, l_name FROM users WHERE username = :username AND password = :password",
+                    # {"username": username, "password": password}).fetchone()
+        passw = database.child("users").child(username).child('password').get().val()
+        # pass = user[0].password
+        # print (passw)
+        if passw != None and len(passw) > 0 and passw == password:
             token = hashlib.md5(str(getrandbits(128)).encode('utf-8')).hexdigest()
-            db.execute("INSERT INTO cell_tokens (username, token) VALUES (:username, :token)",
-                {"username": username, "token": token})
-            db.commit()
-            res = '{"f_name":"' + user['f_name'] + '", "l_name":"' + user['l_name'] + '", "token":"' + token + '",' + '"message":"' + 'success' + '"}'
+            # db.execute("INSERT INTO cell_tokens (username, token) VALUES (:username, :token)",
+                # {"username": username, "token": token})
+            # db.commit()
+            data =  {"username": username, "token": token}
+            f_name = database.child("users").child(username).child('firstname').get().val()
+            l_name = database.child("users").child(username).child('lastname').get().val()
+            res = '{"f_name":"' + f_name + '", "l_name":"' + l_name + '", "token":"' + token + '",' + '"message":"' + 'success' + '"}'
+            # res = '{"message":"' + 'login' + '"}'
+            database.child("tokens").child(token).set(data)
             res = json.loads(res)
             print(res)
             return res
@@ -101,13 +202,13 @@ def cell_signout_api():
     try:
         username = request.args.get('username')
         token = request.args.get('token')
-        user = db.execute("SELECT * FROM cell_tokens WHERE username = :username AND token = :token",
-                    {"username": username, "token": token}).fetchone()
-        if user != None and len(user) > 0:
-            token = hashlib.md5(str(getrandbits(128)).encode('utf-8')).hexdigest()
-            db.execute("DELETE FROM cell_tokens WHERE username = :username AND token = :token",
-                {"username": username, "token": token})
-            db.commit()
+        query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/tokens.json?orderBy=%22username%22&equalTo=%22" + username + "%22"
+        reqs = json.load(urlopen(query_string))
+        if reqs != None and len(reqs.keys()) > 0:
+            # db.execute("DELETE FROM cell_tokens WHERE username = :username AND token = :token",
+            #     {"username": username, "token": token})
+            # db.commit()
+            database.child("tokens").child(token).remove()
             res = '{"message":"' + 'success' + '"}'
             res = json.loads(res)
             print(res)
@@ -123,24 +224,63 @@ def cell_signout_api():
         print(res)
         return res
 
+# @app.route("/api/signup", methods=["GET"])
+# def cell_signup_api():
+#     f_name = request.args.get('fname')
+#     l_name = request.args.get('lname')
+#     password = request.args.get('password')
+#     weight = request.args.get('weight')
+#     username = request.args.get('username')
+#     try:
+#         user = db.execute("SELECT * FROM users WHERE username = :username",
+#                     {"username": username}).fetchone()
+#         if user != None and len(user) > 0:
+#             res = '{"message":"' + 'User already exists' + '"}'
+#             res = json.loads(res)
+#             return res
+#         else:
+#             db.execute("INSERT INTO users (f_name, l_name, username, password, weight) VALUES (:firstname, :lastname, :username, :password, :weight)",
+#                 {"firstname": f_name, "lastname": l_name, "username": username, "password": password, "weight": weight})
+#             db.commit()
+#             res = '{"message":"' + 'success' + '"}'
+#             res = json.loads(res)
+#             return res
+#     except SQLAlchemyError as e:
+#         res = '{"message":"' + 'Error encountered ' + str(e.__dict__['orig']) + '"}'
+#         res = json.loads(res)
+#         return res
+
 @app.route("/api/signup", methods=["GET"])
 def cell_signup_api():
     f_name = request.args.get('fname')
     l_name = request.args.get('lname')
     password = request.args.get('password')
     weight = request.args.get('weight')
+    email = request.args.get('email')
     username = request.args.get('username')
     try:
-        user = db.execute("SELECT * FROM users WHERE username = :username",
-                    {"username": username}).fetchone()
-        if user != None and len(user) > 0:
+        # user = database.child("users").order_by_child("username").equal_to(username).get()
+        password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        user = database.child("users").child(username).get().val()
+        # if user != None and len(user) > 0:
+        print(user)
+        if user != None:
             res = '{"message":"' + 'User already exists' + '"}'
             res = json.loads(res)
             return res
         else:
-            db.execute("INSERT INTO users (f_name, l_name, username, password, weight) VALUES (:firstname, :lastname, :username, :password, :weight)",
-                {"firstname": f_name, "lastname": l_name, "username": username, "password": password, "weight": weight})
-            db.commit()
+            # db.execute("INSERT INTO users (f_name, l_name, username, password, weight) VALUES (:firstname, :lastname, :username, :password, :weight)",
+            #     {"firstname": f_name, "lastname": l_name, "username": username, "password": password, "weight": weight})
+            # db.commit()
+            data = {
+                "firstname": f_name,
+                "lastname": l_name,
+                "email": email,
+                "username": username,
+                "password": password,
+                "weight": weight
+            }
+            database.child("users").child(username).set(data)
             res = '{"message":"' + 'success' + '"}'
             res = json.loads(res)
             return res
@@ -149,7 +289,7 @@ def cell_signup_api():
         res = json.loads(res)
         return res
 
-@app.route("/api/destinations_feedbacks", methods=["GET"])
+@app.route("/api/destinations_feedbacks", methods=["GET"]) #not firebase
 def destinations_feedbacks():
     # token + '|' + type + '|' + name + '|' + lat + '|' + '|' + lng
     token = request.args.get('token')
@@ -182,14 +322,6 @@ def destinations_feedbacks():
     res = '{"message":"' + 'success' + '", "rate":' + str(avg_rate) + ', "votes":' + str(votes) + ', "feedbacks":' + feedbacks + '}'
     res = json.loads(res)
     return res
-
-def cell_auth(token):
-    user = db.execute("SELECT * FROM cell_tokens WHERE token = :token",
-                {"token": token}).fetchone()
-    try:
-        return user['username']
-    except:
-        return False
 
 @app.route("/api/gototoilet", methods=["GET"])
 def gototoilet():
@@ -416,9 +548,11 @@ def changepassword():
         res = json.loads(res)
         return res
     try:
-        db.execute("UPDATE users SET password = :password WHERE username = :username",
-            {"username": username, "password": new_password})
-        db.commit()
+        # db.execute("UPDATE users SET password = :password WHERE username = :username",
+        #     {"username": username, "password": new_password})
+        # db.commit()
+        new_password = hashlib.sha256(new_password.encode('utf-8')).hexdigest()
+        database.child("users").child(username).update({"password": new_password})
         res = '{"message":"' + 'success' + '"}'
         res = json.loads(res)
         return res
@@ -437,9 +571,10 @@ def changeweight():
         res = json.loads(res)
         return res
     try:
-        db.execute("UPDATE users SET weight = :weight WHERE username = :username",
-            {"username": username, "weight": new_weight})
-        db.commit()
+        # db.execute("UPDATE users SET weight = :weight WHERE username = :username",
+        #     {"username": username, "weight": new_weight})
+        # db.commit()
+        database.child("users").child(username).update({"weight": new_weight})
         res = '{"message":"' + 'success' + '"}'
         res = json.loads(res)
         return res
@@ -447,6 +582,13 @@ def changeweight():
         res = '{"message":"' + 'error' + '"}'
         res = json.loads(res)
         return res
+
+# @app.route("/api/test", methods=["GET"])
+# def test():
+#     username = request.args.get('username')
+#     new_password = request.args.get('password')
+#     new_password = hashlib.sha256(new_password.encode('utf-8')).hexdigest()
+#     database.child("users").child(username).update({"password": new_password})
 
 @app.route("/api/feedback", methods=["POST"])
 def feedback():
@@ -517,8 +659,9 @@ def get_stats():
         res = json.loads(res)
         return res
     try:
-        weight = db.execute("SELECT weight FROM public.users WHERE username = :username",
-            {"username": username}).fetchone()['weight']
+        # weight = db.execute("SELECT weight FROM public.users WHERE username = :username",
+        #     {"username": username}).fetchone()['weight']
+        weight = int(database.child("users").child(username).child("weight").get().val())
         entries = db.execute("SELECT date_trunc('day', timestamp)::date date, timestamp, lat, lng FROM public.trajectories WHERE date_trunc('day', timestamp) > CURRENT_DATE - 30 AND username = :username order by date desc",
             {"username": username})
         df = pd.DataFrame(entries, columns=['date', 'timestamp', 'lat', 'lng'])
@@ -554,7 +697,6 @@ def get_stats():
     res = json.loads('{"message":"' + 'error' + '"}')
     return res
 
-
 @app.route("/api/get_range_stats", methods=["GET"])
 def get_range_stats():
     token = request.args.get('token')
@@ -568,11 +710,14 @@ def get_range_stats():
     overall_time = [0] * days
     overall_dist = [0] * days
     # dateArray = [randint(0,4000)] * days
-    weight = db.execute("SELECT weight FROM public.users WHERE username = :username",
-        {"username": username}).fetchone()['weight']
+    # weight = db.execute("SELECT weight FROM public.users WHERE username = :username",
+    #     {"username": username}).fetchone()['weight']
+    weight = int(database.child("users").child(username).child("weight").get().val())
+    print(weight)
     entries = db.execute("SELECT date_trunc('day', timestamp)::date date, timestamp, lat, lng FROM public.trajectories WHERE date_trunc('day', timestamp) >= :startDate AND date_trunc('day', timestamp) <= :endDate AND username = :username order by date desc",
         {"username": username, "startDate":startDate, "endDate":endDate})
     df = pd.DataFrame(entries, columns=['date', 'timestamp', 'lat', 'lng'])
+    # print(df)
     try:
         prev = df.iloc[0]
         for index, entry in df[1:].iterrows():
@@ -589,9 +734,33 @@ def get_range_stats():
                 overall_time[dd] += abs(td)
             dateArray = [7.2 * weight * entry / 3600 for entry in overall_time]
             prev = entry
-    except:
-        pass
+    except Exception as e:
+        print(e)
     res = json.dumps({"message":"success","days":len(dateArray), "data":dateArray, "average":sum(dateArray)/len(dateArray), "total":sum(dateArray)})
     print(res)
     res = json.loads(res)
     return res
+
+
+@app.route("/api/resetpassword", methods=["GET"])
+def resetpassword():
+    email = request.args.get('email')
+    new_password = request.args.get('password')
+    try:
+        # db.execute("UPDATE users SET password = :password WHERE username = :username",
+        #     {"username": username, "password": new_password})
+        # db.commit()
+        query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users.json?orderBy=%22email%22&equalTo=%22" + email + "%22"
+        reqs = json.load(urlopen(query_string))
+        keys = [k  for  k in  reqs.keys()]
+        username = keys[0]
+        print(username)
+        new_password = hashlib.sha256(new_password.encode('utf-8')).hexdigest()
+        database.child("users").child(username).update({"password": new_password})
+        res = '{"message":"' + 'success' + '"}'
+        res = json.loads(res)
+        return res
+    except:
+        res = '{"message":"' + 'error' + '"}'
+        res = json.loads(res)
+        return res

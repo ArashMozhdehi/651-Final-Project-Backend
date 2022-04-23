@@ -339,6 +339,7 @@ function showlocation(locationText) {
                  infoWindow.open(map);
               });
             });
+
           });
         }
       });
