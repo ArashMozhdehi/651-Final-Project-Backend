@@ -269,16 +269,105 @@ def destination():
     else:
         return render_template("index.html")
 
+@app.route("/map", methods=["GET", "POST"])
+def map():
+    return render_template("map.html")
+
 @app.route("/dashboard", methods=["GET", "POST"])
 def dashboard():
     session_id = request.cookies.get('session_id')
     username = request.cookies.get('username')
     fullname = request.cookies.get('fullname')
+    total_time_today = 0
+    total_time_today_up = 0
+    total_dist_today = 0
+    total_dist_today_up = 0
+    total_time_week = 0
+    total_time_week_up = 0
+    total_dist_week = 0
+    total_dist_week_up = 0
+    time_today = datetime.now().strftime("%Y-%m-%d")
+    time_lasttwoweek = (datetime.now() - timedelta(days=13)).strftime("%Y-%m-%d")
+    days, overall_time, overall_dist, overall_cals = cal_prams(time_lasttwoweek, time_today, username)
+    total_time_today = overall_time[days-1]
+    total_time_today_up  = (overall_time[days-1] - overall_time[days-2])
+    total_dist_today = overall_dist[days-1]/1000
+    total_dist_today_up  = ((overall_dist[days-1] - overall_dist[days-2])/1000)
+    # print(days, overall_time, overall_dist, overall_cals)
+    # print(overall_time[0: 7])
+    total_time_week = sum(overall_time[days-8: days-1])/60
+    total_time_week_up = (total_time_week - sum(overall_time[0: 7])/60)
+    total_dist_week = sum(overall_dist[days-8: days-1])/1000
+    total_dist_week_up = (total_dist_week - sum(overall_dist[0: 7])/1000)
+    print(str(overall_cals[6:]))
     passw = database.child("users").child(username).child('password').get().val()
     if web_auth(session_id, username, passw):
-        return render_template("dashboard.html", username=username, fullname=fullname)
+        return render_template("dashboard.html", total_time_today=int(total_time_today),
+        total_time_today_up=int(total_time_today_up), total_dist_today=int(total_dist_today),
+        total_dist_today_up=int(total_dist_today_up), total_time_week=int(total_time_week),
+        total_time_week_up=int(total_time_week_up), total_dist_week=int(total_dist_week),
+        total_dist_week_up=int(total_dist_week_up), kcals_week0=int(overall_dist[7]),
+        kcals_week1=int(overall_dist[8]), kcals_week2=int(overall_dist[9]), kcals_week3=int(overall_dist[10]),
+        kcals_week4=int(overall_dist[11]), kcals_week5=int(overall_dist[12]), kcals_week6=int(overall_dist[13]),
+        username=username, fullname=fullname, kcals_week_day0=(datetime.now() - timedelta(days=6)).strftime("%m-%d"),
+        kcals_week_day1=(datetime.now() - timedelta(days=5)).strftime("%m-%d"),
+        kcals_week_day2=(datetime.now() - timedelta(days=4)).strftime("%m-%d"),
+        kcals_week_day3=(datetime.now() - timedelta(days=3)).strftime("%m-%d"),
+        kcals_week_day4=(datetime.now() - timedelta(days=2)).strftime("%m-%d"),
+        kcals_week_day5=(datetime.now() - timedelta(days=1)).strftime("%m-%d"),
+        kcals_week_day6=(datetime.now().strftime("%m-%d")),
+        kcals_day0=(datetime.now() - timedelta(days=9)).strftime("%m-%d"),
+        kcals_day1=(datetime.now() - timedelta(days=8)).strftime("%m-%d"),
+        kcals_day2=(datetime.now() - timedelta(days=7)).strftime("%m-%d"),
+        kcals_day3=(datetime.now() - timedelta(days=6)).strftime("%m-%d"),
+        kcals_day4=(datetime.now() - timedelta(days=5)).strftime("%m-%d"),
+        kcals_day5=(datetime.now() - timedelta(days=4)).strftime("%m-%d"),
+        kcals_day6=(datetime.now() - timedelta(days=3)).strftime("%m-%d"),
+        kcals_day7=(datetime.now() - timedelta(days=2)).strftime("%m-%d"),
+        kcals_day8=(datetime.now() - timedelta(days=1)).strftime("%m-%d"),
+        kcals_day9=(datetime.now().strftime("%m-%d")), kcals_0=int(overall_cals[4]),
+        kcals_1=int(overall_cals[5]), kcals_2=int(overall_cals[6]), kcals3=int(overall_cals[7]),
+        kcals_4=int(overall_cals[8]), kcals_5=int(overall_cals[9]), kcals6=int(overall_cals[10]),
+        kcals_7=int(overall_cals[11]), kcals_8=int(overall_cals[12]), kcals_9=int(overall_cals[13])
+        )
     else:
         return render_template("index.html")
+
+def cal_prams(start, end, username):
+    startDate = datetime.strptime(start, "%Y-%m-%d")
+    endDate = datetime.strptime(end, "%Y-%m-%d")
+    days = (endDate - startDate).days + 1
+    dateArray = [0] * days
+    overall_time = [0] * days
+    overall_dist = [0] * days
+    # dateArray = [randint(0,4000)] * days
+    # weight = db.execute("SELECT weight FROM public.users WHERE username = :username",
+    #     {"username": username}).fetchone()['weight']
+    weight = int(database.child("users").child(username).child("weight").get().val())
+    print(weight)
+    entries = db.execute("SELECT date_trunc('day', timestamp)::date date, timestamp, lat, lng FROM public.trajectories WHERE date_trunc('day', timestamp) >= :startDate AND date_trunc('day', timestamp) <= :endDate AND username = :username order by date desc",
+        {"username": username, "startDate":startDate, "endDate":endDate})
+    df = pd.DataFrame(entries, columns=['date', 'timestamp', 'lat', 'lng'])
+    # print(df)
+    try:
+        prev = df.iloc[0]
+        for index, entry in df[1:].iterrows():
+            x = (prev['lat'], prev['lng'])
+            y = (entry['lat'], entry['lng'])
+            a=datetime.strptime(str(prev['timestamp']), "%Y-%m-%d %H:%M:%S")
+            b=a-datetime.strptime(str(entry['timestamp']), "%Y-%m-%d %H:%M:%S")
+            td=abs(b.total_seconds())
+            a=datetime.strptime(str(entry['date']), "%Y-%m-%d")
+            b=startDate-a
+            dd=abs(b.days)
+            if(str(prev['date']) == str(entry['date']) and abs(td) < 10800):
+                overall_dist[dd] += abs(haversine(x, y) * 1000)
+                overall_time[dd] += abs(td)
+            dateArray = [7.2 * weight * entry / 3600 for entry in overall_time]
+            prev = entry
+    except Exception as e:
+        print(e)
+    return days, overall_time, overall_dist, dateArray
 
 @app.route("/logout", methods=["GET", "POST"])
 def logout():

@@ -418,10 +418,10 @@ var Charts = (function() {
 				var content = '';
 
 				if (data.datasets.length > 1) {
-					content += '<span class="popover-body-label mr-auto">' + label + '</span>';
+					content += ' ' + label + ' ';
 				}
 
-				content += '<span class="popover-body-value">' + prefix + yLabel + suffix + '</span>';
+				content += ' ' + prefix + yLabel + suffix + ' ';
 				return content;
 			}
 
@@ -614,7 +614,7 @@ var NavbarCollapse = (function() {
 				 $('body').removeClass('nav-open');
 					navbar_menu_visible = 0;
 					$('.bodyClick').remove();
-					
+
 			 });
 
 		 $('body').addClass('nav-open');
@@ -839,13 +839,29 @@ var BarsChart = (function() {
 	function initChart($chart) {
 
 		// Create chart
+    let kcals_week0 = document.getElementById('kcals_week0').value
+    let kcals_week1 = document.getElementById('kcals_week1').value
+    let kcals_week2 = document.getElementById('kcals_week2').value
+    let kcals_week3 = document.getElementById('kcals_week3').value
+    let kcals_week4 = document.getElementById('kcals_week4').value
+    let kcals_week5 = document.getElementById('kcals_week5').value
+    let kcals_week6 = document.getElementById('kcals_week6').value
+
+
+    let kcals_week_day0 = document.getElementById('kcals_week_day0').value
+    let kcals_week_day1 = document.getElementById('kcals_week_day1').value
+    let kcals_week_day2 = document.getElementById('kcals_week_day2').value
+    let kcals_week_day3 = document.getElementById('kcals_week_day3').value
+    let kcals_week_day4 = document.getElementById('kcals_week_day4').value
+    let kcals_week_day5 = document.getElementById('kcals_week_day5').value
+    let kcals_week_day6 = document.getElementById('kcals_week_day6').value
 		var ordersChart = new Chart($chart, {
 			type: 'bar',
 			data: {
-				labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+				labels: [kcals_week_day0, kcals_week_day1, kcals_week_day2, kcals_week_day3, kcals_week_day4, kcals_week_day5, kcals_week_day6],
 				datasets: [{
-					label: 'Sales',
-					data: [25, 20, 30, 22, 17, 29]
+					label: 'kMs',
+					data: [kcals_week0, kcals_week1, kcals_week2, kcals_week3, kcals_week4, kcals_week5, kcals_week6]
 				}]
 			}
 		});
@@ -878,6 +894,27 @@ var SalesChart = (function() {
   // Methods
 
   function init($chart) {
+    let kcals_0 = document.getElementById('kcals_0').value
+    let kcals_1 = document.getElementById('kcals_1').value
+    let kcals_2 = document.getElementById('kcals_2').value
+    let kcals_3 = document.getElementById('kcals_3').value
+    let kcals_4 = document.getElementById('kcals_4').value
+    let kcals_5 = document.getElementById('kcals_5').value
+    let kcals_6 = document.getElementById('kcals_6').value
+    let kcals_7 = document.getElementById('kcals_7').value
+    let kcals_8 = document.getElementById('kcals_8').value
+    let kcals_9 = document.getElementById('kcals_9').value
+
+    let kcals_day0 = document.getElementById('kcals_day0').value
+    let kcals_day1 = document.getElementById('kcals_day1').value
+    let kcals_day2 = document.getElementById('kcals_day2').value
+    let kcals_day3 = document.getElementById('kcals_day3').value
+    let kcals_day4 = document.getElementById('kcals_day4').value
+    let kcals_day5 = document.getElementById('kcals_day5').value
+    let kcals_day6 = document.getElementById('kcals_day6').value
+    let kcals_day7 = document.getElementById('kcals_day7').value
+    let kcals_day8 = document.getElementById('kcals_day8').value
+    let kcals_day9 = document.getElementById('kcals_day9').value
 
     var salesChart = new Chart($chart, {
       type: 'line',
@@ -892,7 +929,7 @@ var SalesChart = (function() {
             ticks: {
               callback: function(value) {
                 if (!(value % 10)) {
-                  return '$' + value + 'k';
+                  return ' ' + value + 'kCals';
                 }
               }
             }
@@ -906,20 +943,20 @@ var SalesChart = (function() {
               var content = '';
 
               if (data.datasets.length > 1) {
-                content += '<span class="popover-body-label mr-auto">' + label + '</span>';
+                content += ' ' + label + 'kCals';
               }
 
-              content += '<span class="popover-body-value">$' + yLabel + 'k</span>';
+              content += ' ' + yLabel + 'kCals';
               return content;
             }
           }
         }
       },
       data: {
-        labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        labels: [kcals_day0, kcals_day1, kcals_day2, kcals_day3, kcals_day4, kcals_day5, kcals_day6, kcals_day7, kcals_day8, kcals_day9],
         datasets: [{
           label: 'Performance',
-          data: [0, 20, 10, 30, 15, 40, 20, 60, 60]
+          data: [kcals_0, kcals_1, kcals_2, kcals_3, kcals_4, kcals_5, kcals_6, kcals_7, kcals_8, kcals_9]
         }]
       }
     });

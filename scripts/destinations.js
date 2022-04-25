@@ -73,19 +73,19 @@ function show_path(fromPosition, toPosition) {
             routePaths.push(routePath);
             google.maps.event.addListener(routePath, 'click', function (e) {
               try{
-                infoWindow.close();
+                open_info_window.close();
               }
               catch{}
-              infoWindow = new google.maps.InfoWindow();
+              var infoWindow5 = new google.maps.InfoWindow();
                var location = e.latLng;
                // alert(location);
                // console.log(location);
-               infoWindow.setContent('<b>Trip information</b><br><br><b>Total distance:</b> ' + distance/1000
+               infoWindow5.setContent('<b>Trip information</b><br><br><b>Total distance:</b> ' + distance/1000
                + ' km<br><b>Estimated total duration:</b> '
-               + (duration/60).toFixed(0) + ' mins<br><b>Remanining distance:</b> ' + remaining_distance/1000 +
-                ' km<br><b>Estimated remaining duration:</b> ' + (remaining_duration / 60).toFixed(0) +' mins');
-               infoWindow.setPosition(location);
-               infoWindow.open(map);
+               + (duration/60).toFixed(0) + ' mins');
+               infoWindow5.setPosition(location);
+               infoWindow5.open(map);
+               open_info_window = infoWindow5;
             });
           });
 
@@ -242,6 +242,7 @@ function overlayControls (map) {
     control.title = options.title;
     control.id = options.id;
     control.innerHTML = options.name;
+    control.ariaChecked = true;
     google.maps.event.addDomListener(control,'click',options.action);
     return control;
    }
@@ -251,14 +252,21 @@ function overlayControls (map) {
     var container = document.createElement('DIV');
       container.className = "checkboxContainer";
       container.title = options.title;
+      container.setAttribute("aria-checked", true);
 
     var span = document.createElement('SPAN');
     span.role = "checkbox";
+    // span.ariaChecked = true;
     span.className = "checkboxSpan";
+    span.setAttribute("aria-checked", true);
+
+
+    // span.checked = true;
 
     var bDiv = document.createElement('DIV');
       bDiv.className = "blankDiv";
       bDiv.id = options.id;
+      bDiv.setAttribute("aria-checked", true);
 
       var image = document.createElement('IMG');
       image.className = "blankImg";
@@ -267,6 +275,10 @@ function overlayControls (map) {
       var label = document.createElement('LABEL');
       label.className = "checkboxLabel";
       label.innerHTML = options.label;
+      label.setAttribute("aria-checked", true);
+      // document.getElementById(bDiv.id).setAttribute("aria-checked", true);
+      // document.getElementById(span.id).setAttribute("aria-checked", true);
+
 
 
       bDiv.appendChild(image);
