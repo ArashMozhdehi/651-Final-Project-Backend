@@ -1,0 +1,107 @@
+<!--
+=========================================================
+* Argon Dashboard - v1.2.0
+=========================================================
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+
+
+* Copyright  Creative Tim (http://www.creative-tim.com)
+* Coded by www.creative-tim.com
+
+
+
+=========================================================
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="canonical" href="https://appseed.us/admin-dashboards/flask-boilerplate-dashboard-argon">
+  <script src="https://cdnout.com/toastr.js"></script>
+  <link href="https://cdnout.com/toastr.js/toastr.css" rel="stylesheet" media="all">
+  <link href="https://cdnout.com/toastr.js/toastr.min.css" rel="stylesheet" media="all">
+  <link href="https://cdnout.com/toastr.js/toastr.css" rel="stylesheet" media="all">
+  <link href="https://cdnout.com/toastr.js/css/base.css" rel="stylesheet" media="all">
+
+  <title>
+    Bike Assistant | Arash Mozhdehi
+  </title>
+
+  <!-- Favicon - loaded as static -->
+  <link rel="icon" type="image/png" href="./images/icon.ico"/>
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+  <!-- Icons -->
+  <link rel="stylesheet" href="/assets/vendor/nucleo/css/nucleo.css" type="text/css">
+  <link rel="stylesheet" href="/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+  <!-- Page plugins -->
+  <!-- Argon CSS -->
+  <link rel="stylesheet" href="/assets/css/argon.css?v=1.2.0" type="text/css">
+  <link rel="stylesheet" href="/styles/dashboard.css" type="text/css">
+  <script src="https://kit.fontawesome.com/da38258503.js" crossorigin="anonymous"></script>
+  <script src="./scripts/dashboard.js"></script>
+  <script>
+    function set_profile() {
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+      }
+      var username = getCookie("username");
+      var fullname = getCookie("fullname");
+      // const hashed = sha256("{{username}}");
+      // document.getElementById("profile_name").textContent = "{{fullname}}";
+      const hashed = sha256(username);
+      document.getElementById("profile_name").textContent = fullname.replace('"','').replace('"','');
+      // document.getElementById("profile_name").style.fontSize = "xx-large";
+      var url = "https://firebasestorage.googleapis.com/v0/b/engo-651-final-project.appspot.com/o/images%2F" + hashed + ".jpg?alt=media";
+      var img_url = "https://firebasestorage.googleapis.com/v0/b/engo-651-final-project.appspot.com/o/images%2F755a53d142b8c9fd531e1856bf9244f8a01abd2717586a447098eeedb9d8d2f5.jpg";
+      function testImage(URL) {
+          var tester=new Image();
+          tester.onload=imageFound;
+          tester.onerror=imageNotFound;
+          tester.src=URL;
+      }
+      function imageFound() {
+        document.getElementById("profile_img").src = url;
+        document.getElementById("profile_img2").src = url;
+      }
+      function imageNotFound() {
+        document.getElementById("profile_img").src = "./images/icons8_person_96.png";
+        document.getElementById("profile_img2").src = "./images/icons8_person_96.png";
+      }
+      testImage(url);
+    }
+  </script>
+
+
+  <!-- Specific CSS goes HERE -->
+  {% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+
+<body class="" onload="set_profile(); profile_update('{{message}}');">
+
+  {% include "includes/sidenav.html" %}
+
+  <div class="main-content" id="panel">
+
+    {% include "includes/navigation.html" %}
+
+    {% block content %}{% endblock content %}
+
+  </div>
+
+  {% include "includes/scripts.html" %}
+
+  <!-- Specific JS goes HERE -->
+  {% block javascripts %}{% endblock javascripts %}
+
+  <script src="/assets/js/argon.js?v=1.2.0"></script>
+
+</body>
+
+</html>

@@ -18,9 +18,18 @@
 	<script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="./vendor/select2/select2.min.js"></script>
 	<script src="./vendor/tilt/tilt.jquery.min.js"></script>
-<script src="./scripts/main.js"></script>
+	<script src="./scripts/main.js"></script>
+	<script src="https://cdnout.com/toastr.js"></script>
+	<link href="https://cdnout.com/toastr.js/toastr.css" rel="stylesheet" media="all">
+	<link href="https://cdnout.com/toastr.js/toastr.min.css" rel="stylesheet" media="all">
+	<link href="https://cdnout.com/toastr.js/toastr.css" rel="stylesheet" media="all">
+	<link href="https://cdnout.com/toastr.js/css/base.css" rel="stylesheet" media="all">
 </head>
-<body>
+{% if message == "error" %}
+	<body onload="showError()">
+{% else %}
+	<body>
+{% endif %}
 	<header>
 
 	</header>
@@ -64,11 +73,11 @@
 					</div>
 
 					{% if message == "error" %}
-					<div id="hide" class="text-center p-t-12">
+					<!-- <div id="hide" class="text-center p-t-12">
 						<div class="alert alert-danger" role="alert">
 							Incorrect Username or/and Password!
 						</div>
-					</div>
+					</div> -->
 					{% endif %}
 
 					<div class="text-center p-t-136">

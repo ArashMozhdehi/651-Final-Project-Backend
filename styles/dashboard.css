@@ -1,0 +1,37 @@
+@font-face {
+  font-family: 'indieflower Font Family';
+  src: URL('/fonts/indieflower.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'MsMadi Font Family';
+  src: URL('/fonts/msmadi.ttf') format('truetype');
+}
+
+#welcome_string {
+  font-family: 'MsMadi Font Family';
+  font-size: 35px;
+  color: white;
+  font-style: bold;
+}
+
+#profile_img {
+  border:2px solid #000;
+  -moz-box-shadow: 1px 1px 1px 1px #ccc;
+  -webkit-box-shadow: 1px 1px 1px 1px #ccc;
+  box-shadow: 1px 1px 1px 1px #ccc;
+  -webkit-border-radius:60px;
+}
+
+#profile_name {
+  font-family: 'indieflower Font Family';
+  font: italic bold;
+  font-size: 25px;
+  margin-left: 5px;
+}
+
+#profile_img2 {
+  width: 150px;
+  height: 150px;
+  margin-top: -50%;
+}

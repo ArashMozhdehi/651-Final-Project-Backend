@@ -1,0 +1,62 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+  <link rel="stylesheet" type="text/css" href="./styles/track.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Header -->
+    <!-- <div class="header bg-primary pb-6"> -->
+<br><br><br>
+  <div class="container-fluid d-flex align-items-center">
+      {%for i in range(0, num_dev)%}
+          <!-- <div class="card">
+           <img src="img_avatar.png" alt="Avatar" style="width:100%">
+           <div class="container">
+             <h4><b>John Doe</b></h4>
+             <p>Architect & Engineer</p>
+           </div>
+         </div> -->
+         {%if i % 4 == 0 %}
+          <div class="row align-items-center" style="margin: auto;">
+         {%endif%}
+         <form action="/track?bike={{i}}" method="post">
+           <div class="col">
+             <div class="card">
+              <img src="/images/bicycle_{{i+1}}.png" alt="Biker" style="width:250px; height:250px;">
+              <h1>Biker {{i+1}}</h1>
+              <p><button type="submit">Select</button></p>
+            </div>
+          </div>
+          </form>
+        {%if i % 4 == 3 %}
+        </div>
+        <br>
+        {%endif%}
+        {%if i % 4 != 3 and num_dev-1 == i %}
+        </div>
+        <br>
+        {%endif%}
+      {%endfor%}
+
+    </div>
+      <br><br><br>
+
+  {% include "includes/footer.html" %}
+
+    <!-- </div> -->
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+  <script src="/assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+
+{% endblock javascripts %}

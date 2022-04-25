@@ -2,7 +2,7 @@
 (function ($) {
     "use strict";
 
-    
+
     /*==================================================================
     [ Validate ]*/
     var input = $('.validate-input .input100');
@@ -51,7 +51,11 @@
 
         $(thisAlert).removeClass('alert-validate');
     }
-    
-    
+
+
 
 })(jQuery);
+
+function showError() {
+  toastr.error('Incorrect Username or/and Password!');
+}

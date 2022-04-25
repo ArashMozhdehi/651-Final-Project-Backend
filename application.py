@@ -19,7 +19,7 @@ from urllib.request import urlopen
 
 app = Flask(__name__, template_folder='./htmls')
 app.secret_key = "secret"
-
+secret_key = "324324"
 
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
@@ -63,6 +63,18 @@ def resource_not_found(e):
 @app.route('/images/<path:filename>')
 def base_static_images(filename):
     return send_from_directory(app.root_path + '/images/', filename)
+
+@app.route('/assets/<path:filename>')
+def base_static_assets(filename):
+    return send_from_directory(app.root_path + '/assets/', filename)
+
+@app.route('/includes/<path:filename>')
+def base_static_includes(filename):
+    return send_from_directory(app.root_path + '/htmls/includes/', filename)
+
+@app.route('/layouts/<path:filename>')
+def base_static_layouts(filename):
+    return send_from_directory(app.root_path + '/htmls/layouts/', filename)
 
 @app.route('/vendor/<path:filename>')
 def base_static_vendor(filename):
@@ -136,6 +148,146 @@ def cell_auth(token):
 #         print(res)
 #         return res
 
+@app.route("/profile", methods=["GET", "POST"])
+def profile():
+    pass_changed = False
+    session_id = request.cookies.get('session_id')
+    username = request.cookies.get('username')
+    fullname = request.cookies.get('fullname')
+    message = ""
+    if request.method == "POST":
+        new_email = request.form["input-email"]
+        new_weight = request.form["input-weight"]
+        new_pass = request.form["input-pass"]
+        new_repass = request.form["input-repass"]
+        info = request.form["info"]
+        database.child("users").child(username).child('weight').set(new_weight)
+        database.child("users").child(username).child('email').set(new_email)
+        database.child("users").child(username).child('info').set(info)
+        message = "update"
+        if (new_pass == new_repass and new_repass != ""):
+            new_pass = hashlib.sha256(new_pass.encode('utf-8')).hexdigest()
+            database.child("users").child(username).child('password').set(new_pass)
+            pass_changed = True
+            session_id = str(username) + str(secret_key) + str(new_pass)
+            session_id = hashlib.sha256(session_id.encode('utf-8')).hexdigest()
+        elif (new_repass != new_pass):
+            message = "not_same"
+    passw = database.child("users").child(username).child('password').get().val()
+    weight = database.child("users").child(username).child('weight').get().val()
+    firstname = database.child("users").child(username).child('firstname').get().val()
+    lastname = database.child("users").child(username).child('lastname').get().val()
+    email = database.child("users").child(username).child('email').get().val()
+    try:
+        info = database.child("users").child(username).child('info').get().val()
+        print(info)
+    except:
+        info = ""
+    # print(email )
+    logged_devs = 0
+    try:
+        query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/tokens.json?orderBy=%22username%22&equalTo=%22" + username + "%22"
+        reqs = json.load(urlopen(query_string))
+        logged_devs = len(reqs.keys())
+    except:
+        pass
+    comments=0
+    try:
+        req = db.execute("select * from dst_feedbacks where username=:username",
+                    {"username": username}).fetchall()
+        comments = len(req)
+    except:
+        pass
+    feedbacks=0
+    try:
+        req = db.execute("select * from benches_feedbacks where username=:username",
+                    {"username": username}).fetchall()
+        feedbacks = len(req)
+        req = db.execute("select * from toilets_feedbacks where username=:username",
+                    {"username": username}).fetchall()
+        feedbacks += len(req)
+        req = db.execute("select * from water_feedbacks where username=:username",
+                    {"username": username}).fetchall()
+        feedbacks += len(req)
+    except:
+        pass
+    if web_auth(session_id, username, passw):
+        if (info == None or info == ""):
+            ret = make_response(render_template("profile.html", message=message, feedbacks=feedbacks, comments=comments, logged_devs=logged_devs, password=passw, email=email, lastname=lastname, firstname=firstname, username=username, fullname=fullname, weight=weight))
+            if pass_changed:
+                ret.set_cookie('session_id', session_id)
+            return ret
+        else:
+            ret = make_response(render_template("profile.html", message=message, info=info, feedbacks=feedbacks, comments=comments, logged_devs=logged_devs, password=passw, email=email, lastname=lastname, firstname=firstname, username=username, fullname=fullname, weight=weight))
+            if pass_changed:
+                ret.set_cookie('session_id', session_id)
+            return ret
+    else:
+        return render_template("index.html")
+
+@app.route("/track", methods=["GET", "POST"])
+def track():
+    if request.method == "POST":
+        username = request.cookies.get('username')
+        session_id = request.cookies.get('session_id')
+        passw = database.child("users").child(username).child('password').get().val()
+        bike = int(request.args.get('bike'))
+        query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/tokens.json?orderBy=%22username%22&equalTo=%22" + username + "%22"
+        reqs = json.load(urlopen(query_string))
+        tokens = [*reqs]
+        token = tokens[bike]
+        print(token)
+        if web_auth(session_id, username, passw):
+            return render_template("main.html", username=username, token=token)
+        else:
+            return render_template("index.html")
+    else:
+        session_id = request.cookies.get('session_id')
+        username = request.cookies.get('username')
+        fullname = request.cookies.get('fullname')
+        passw = database.child("users").child(username).child('password').get().val()
+        query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/tokens.json?orderBy=%22username%22&equalTo=%22" + username + "%22"
+        reqs = json.load(urlopen(query_string))
+        num_dev = len(reqs.keys())
+        print("num_dev: "+str(num_dev))
+        if web_auth(session_id, username, passw):
+            return render_template("track.html", num_dev=num_dev, username=username, fullname=fullname)
+        else:
+            return render_template("index.html")
+
+def track_bike(bike):
+    print("track bike"+str(bike))
+
+@app.route("/destination", methods=["GET", "POST"])
+def destination():
+    session_id = request.cookies.get('session_id')
+    username = request.cookies.get('username')
+    fullname = request.cookies.get('fullname')
+    passw = database.child("users").child(username).child('password').get().val()
+    if web_auth(session_id, username, passw):
+        return render_template("destination.html", username=username, fullname=fullname)
+    else:
+        return render_template("index.html")
+
+@app.route("/dashboard", methods=["GET", "POST"])
+def dashboard():
+    session_id = request.cookies.get('session_id')
+    username = request.cookies.get('username')
+    fullname = request.cookies.get('fullname')
+    passw = database.child("users").child(username).child('password').get().val()
+    if web_auth(session_id, username, passw):
+        return render_template("dashboard.html", username=username, fullname=fullname)
+    else:
+        return render_template("index.html")
+
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+    ret = make_response(render_template("index.html"))
+    ret.set_cookie('session_id', "")
+    ret.set_cookie('username', "")
+    ret.set_cookie('fullname', "")
+    return ret
+
 @app.route("/", methods=["GET", "POST"])
 def login():
     try:
@@ -148,18 +300,48 @@ def login():
                 # db.execute("INSERT INTO cell_tokens (username, token) VALUES (:username, :token)",
                     # {"username": username, "token": token})
                 # db.commit()
-                query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/tokens.json?orderBy=%22username%22&equalTo=%22" + username + "%22"
+                # query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/tokens.json?orderBy=%22username%22&equalTo=%22" + username + "%22"
+                # reqs = json.load(urlopen(query_string))
+                # keys = [k for k in reqs.keys()]
+                # token = keys
+                query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/" + username + "/firstname.json"
                 reqs = json.load(urlopen(query_string))
-                keys = [k  for  k in  reqs.keys()]
-                token = keys[0]
-                # print(keys[0])
-                return render_template("main.html", token=token, username=username)
+                f_name = reqs
+                query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/" + username + "/lastname.json"
+                reqs = json.load(urlopen(query_string))
+                l_name = reqs
+                fullname = f_name + " " + l_name
+                # ret = render_template("dashboard.html", token=token, username=username, fullname=fullname)
+                ret = make_response(render_template("dashboard.html", username=username, fullname=fullname))
+                session_id = str(username) + str(secret_key) + str(password)
+                session_id = hashlib.sha256(session_id.encode('utf-8')).hexdigest()
+                ret.set_cookie('session_id', session_id)
+                ret.set_cookie('username', username)
+                ret.set_cookie('fullname', fullname)
+                return ret
             else:
                 return render_template("index.html", message="error")
         else:
-            return render_template("index.html")
-    except:
+            try:
+                session_id = request.cookies.get('session_id')
+                username = request.cookies.get('username')
+                fullname = request.cookies.get('fullname')
+                passw = database.child("users").child(username).child('password').get().val()
+                if web_auth(session_id, username, passw):
+                    return render_template("dashboard.html", username=username, fullname=fullname)
+                else:
+                    return render_template("index.html")
+            except e:
+                print(e.message)
+                return render_template("index.html")
+    except e:
+        print(e.message)
         return render_template("index.html", message="error")
+
+def web_auth(session_id, username, password):
+    c_session_id = str(username) + str(secret_key) + str(password)
+    c_session_id = hashlib.sha256(c_session_id.encode('utf-8')).hexdigest()
+    return c_session_id == session_id
 
 @app.route("/api/signin", methods=["GET"])#ok
 def cell_signin_api():
