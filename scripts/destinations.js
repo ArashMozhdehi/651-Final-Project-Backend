@@ -22,6 +22,77 @@ var bikeparkings_checked = true;
 var events_checked = true;
 var historics_checked = true;
 
+var path = null;
+var routePath = null;
+var routePaths = [];
+
+function show_path(fromPosition, toPosition) {
+  if (routePath != null) {
+      path.setMap(null);
+      routePath.setMap(null);
+      for (path in routePaths) {
+        routePaths[path].setMap(null);
+      }
+  }
+  var ds = new google.maps.DirectionsService();
+  routePath = null;
+  path = null;
+  routePaths = [];
+    ds.route({
+      origin: fromPosition,
+      destination: toPosition,
+      travelMode: google.maps.TravelMode.BICYCLING,
+      unitSystem: google.maps.UnitSystem.METRIC
+    }, function (result, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+
+         path = new google.maps.Polyline({
+          map: map,
+          path: result.routes[0].overview_path
+        });
+
+        var fullPath = [];
+        var distance = 0;
+        var duration = 0;
+        for (let i = 0; i < result.routes[0].legs.length; i++) {
+          distance += result.routes[0].legs[i].distance.value;
+          duration += result.routes[0].legs[i].duration.value;
+        }
+        // alert("distnace:" + distance +", duration: " + duration);
+        // console.log(result);
+
+        result.routes[0].legs.forEach(function (leg) {
+          leg.steps.forEach(function (step) {
+            fullPath = fullPath.concat(step.path);
+            routePath = new google.maps.Polyline({
+              map: map,
+              path: step.path,
+              strokeColor: "red",
+              strokeWeight: 7
+            });
+            routePaths.push(routePath);
+            google.maps.event.addListener(routePath, 'click', function (e) {
+              try{
+                infoWindow.close();
+              }
+              catch{}
+              infoWindow = new google.maps.InfoWindow();
+               var location = e.latLng;
+               // alert(location);
+               // console.log(location);
+               infoWindow.setContent('<b>Trip information</b><br><br><b>Total distance:</b> ' + distance/1000
+               + ' km<br><b>Estimated total duration:</b> '
+               + (duration/60).toFixed(0) + ' mins<br><b>Remanining distance:</b> ' + remaining_distance/1000 +
+                ' km<br><b>Estimated remaining duration:</b> ' + (remaining_duration / 60).toFixed(0) +' mins');
+               infoWindow.setPosition(location);
+               infoWindow.open(map);
+            });
+          });
+
+        });
+      }
+    });
+}
 
 function initialize() {
   map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -312,6 +383,7 @@ function overlayControls (map) {
                   // marker.setLabel(label);
                   marker.addListener("click", () => {
                     // alert(marker.getTitle());
+                    show_path(cur_marker.getPosition(), marker.getPosition());
                     if(open_info_window != null) {
                       open_info_window.close()
                     }
@@ -366,6 +438,7 @@ function overlayControls (map) {
                     visible:bikeparkings_checked,
                   });
                   marker1.addListener("click", () => {
+                    show_path(cur_marker.getPosition(), marker1.getPosition());
                     if(open_info_window != null) {
                       open_info_window.close()
                     }
@@ -423,6 +496,7 @@ function overlayControls (map) {
                     visible:events_checked,
                   });
                   marker2.addListener("click", () => {
+                    show_path(cur_marker.getPosition(), marker2.getPosition());
                     if(open_info_window != null) {
                       open_info_window.close()
                     }
@@ -474,8 +548,8 @@ function overlayControls (map) {
                     fillOpacity: 1,
                     scaledSize: new google.maps.Size(40, 40),
                   };
-                  console.log("longitude: " + longitude);
-                  console.log("latitude: " + latitude);
+                  // console.log("longitude: " + longitude);
+                  // console.log("latitude: " + latitude);
                   // console.log("name: "+name);bikeparkings_array
                   // console.log("general_info: "+general_info);
                   var label = '<img style="display: block;margin-left: auto;margin-right: auto;width:300px;" src="'
@@ -496,6 +570,7 @@ function overlayControls (map) {
                     visible:historics_checked,
                   });
                   marker3.addListener("click", () => {
+                    show_path(cur_marker.getPosition(), marker3.getPosition());
                     if(open_info_window != null) {
                       open_info_window.close()
                     }
