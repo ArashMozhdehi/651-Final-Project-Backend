@@ -225,6 +225,17 @@ def profile():
     else:
         return render_template("index.html")
 
+@app.route("/home", methods=["GET", "POST"])
+def home():
+    session_id = request.cookies.get('session_id')
+    username = request.cookies.get('username')
+    fullname = request.cookies.get('fullname')
+    passw = database.child("users").child(username).child('password').get().val()
+    if web_auth(session_id, username, passw):
+        return render_template("home.html", username=username, fullname=fullname)
+    else:
+        return render_template("index.html")
+
 @app.route("/track", methods=["GET", "POST"])
 def track():
     if request.method == "POST":
@@ -403,7 +414,7 @@ def login():
                 l_name = reqs
                 fullname = f_name + " " + l_name
                 # ret = render_template("dashboard.html", token=token, username=username, fullname=fullname)
-                ret = make_response(render_template("index.html", username=username, fullname=fullname))
+                ret = make_response(render_template("home.html", username=username, fullname=fullname))
                 session_id = str(username) + str(secret_key) + str(password)
                 session_id = hashlib.sha256(session_id.encode('utf-8')).hexdigest()
                 ret.set_cookie('session_id', session_id)
