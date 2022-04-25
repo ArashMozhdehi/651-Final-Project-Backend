@@ -430,7 +430,7 @@ def login():
                 fullname = request.cookies.get('fullname')
                 passw = database.child("users").child(username).child('password').get().val()
                 if web_auth(session_id, username, passw):
-                    return render_template("dashboard.html", username=username, fullname=fullname)
+                    return render_template("home.html", username=username, fullname=fullname)
                 else:
                     return render_template("index.html")
             except Exception as e:

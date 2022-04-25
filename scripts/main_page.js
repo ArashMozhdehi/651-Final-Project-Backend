@@ -71,7 +71,7 @@ function overlayControls (map) {
   controlText.innerHTML = "Move Back";
   controlUI.appendChild(controlText);
   controlUI.addEventListener("click", () => {
-    window.location.href="/track";
+    window.location.href="/home";
   });
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(controlDiv);
 
