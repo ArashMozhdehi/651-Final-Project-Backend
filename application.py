@@ -328,8 +328,7 @@ def dashboard():
         kcals_day9=(datetime.now().strftime("%m-%d")), kcals_0=int(overall_cals[4]),
         kcals_1=int(overall_cals[5]), kcals_2=int(overall_cals[6]), kcals3=int(overall_cals[7]),
         kcals_4=int(overall_cals[8]), kcals_5=int(overall_cals[9]), kcals6=int(overall_cals[10]),
-        kcals_7=int(overall_cals[11]), kcals_8=int(overall_cals[12]), kcals_9=int(overall_cals[13])
-        )
+        kcals_7=int(overall_cals[11]), kcals_8=int(overall_cals[12]), kcals_9=int(overall_cals[13]))
     else:
         return render_template("index.html")
 
@@ -365,8 +364,9 @@ def cal_prams(start, end, username):
                 overall_time[dd] += abs(td)
             dateArray = [7.2 * weight * entry / 3600 for entry in overall_time]
             prev = entry
-    except Exception as e:
-        print(e)
+    except:
+        pass
+        # print(e)
     return days, overall_time, overall_dist, dateArray
 
 @app.route("/logout", methods=["GET", "POST"])
@@ -385,6 +385,8 @@ def login():
             password = request.form.get('password')
             password = hashlib.sha256(password.encode('utf-8')).hexdigest()
             passw = database.child("users").child(username).child('password').get().val()
+            print(password)
+            print(passw)
             if passw != None and len(passw) > 0 and passw == password:
                 # db.execute("INSERT INTO cell_tokens (username, token) VALUES (:username, :token)",
                     # {"username": username, "token": token})
@@ -401,7 +403,7 @@ def login():
                 l_name = reqs
                 fullname = f_name + " " + l_name
                 # ret = render_template("dashboard.html", token=token, username=username, fullname=fullname)
-                ret = make_response(render_template("dashboard.html", username=username, fullname=fullname))
+                ret = make_response(render_template("index.html", username=username, fullname=fullname))
                 session_id = str(username) + str(secret_key) + str(password)
                 session_id = hashlib.sha256(session_id.encode('utf-8')).hexdigest()
                 ret.set_cookie('session_id', session_id)
@@ -420,10 +422,10 @@ def login():
                     return render_template("dashboard.html", username=username, fullname=fullname)
                 else:
                     return render_template("index.html")
-            except e:
+            except Exception as e:
                 print(e.message)
                 return render_template("index.html")
-    except e:
+    except Exception as e:
         print(e.message)
         return render_template("index.html", message="error")
 
