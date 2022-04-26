@@ -200,4 +200,4 @@ April 2022
 - [Web Application Manual](https://arash-mozhdehi.gitbook.io/bike-assistant/v/web-based-application/)
 >>>>>>> baf7843111aeb028d4307d8b3477fb31be18ff51
 - [Data Specifications](https://arash-mozhdehi.gitbook.io/databases-design/)
-- [API Documentation](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0)
+- [API Documentation - Swagger](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0)
