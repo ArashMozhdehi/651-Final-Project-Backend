@@ -7,6 +7,10 @@
   },
   "servers": [
     {
+      "url": "https://virtserver.swaggerhub.com/uofcengo/BikeAssistance/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    },
+    {
       "url": "https://engo651-arash-mozhdehi.herokuapp.com/",
       "description": "Bike Assistant"
     }
@@ -40,7 +44,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "ArashMozhdehi"
+              "example": "amozhdehi"
             }
           },
           {
@@ -53,7 +57,7 @@
             "schema": {
               "type": "string",
               "format": "password",
-              "example": "Password"
+              "example": "admin"
             }
           }
         ],
@@ -208,7 +212,7 @@
             "schema": {
               "type": "string",
               "format": "password",
-              "example": "Password"
+              "example": "d033e22ae348aeb5660fc2140aec35850c4da997"
             }
           },
           {
@@ -233,7 +237,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "ArashMozhdehi"
+              "example": "amozhdehi"
             }
           }
         ],
@@ -298,7 +302,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "e94c3f3ade2a92b39dddebb1f142fae0"
+              "example": "4e1aba573cd20ca93c7b0a4cdbdb4e66"
             }
           },
           {
@@ -311,7 +315,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": 51.0814
+              "example": 51.0444965816199
             }
           },
           {
@@ -324,7 +328,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": -114.14302
+              "example": -114.068188205229
             }
           },
           {
@@ -336,7 +340,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "historical"
+              "example": "bikepark"
             }
           },
           {
@@ -348,7 +352,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "ArashMozhedehi"
+              "example": "test1111"
             }
           },
           {
@@ -360,7 +364,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "Nose Hill Park"
+              "example": "City Centre Parkade"
             }
           }
         ],
@@ -425,7 +429,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "e94c3f3ade2a92b39dddebb1f142fae0"
+              "example": "3e80a330a405bc916b5ea1de7cafe066"
             }
           },
           {
@@ -438,7 +442,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": 51.4430355
+              "example": 51.0619513267394
             }
           },
           {
@@ -451,7 +455,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": -114.8121883
+              "example": -114.024088492002
             }
           },
           {
@@ -464,7 +468,7 @@
             "schema": {
               "type": "integer",
               "format": "int32",
-              "example": 50
+              "example": 1000
             }
           }
         ],
@@ -542,7 +546,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "e94c3f3ade2a92b39dddebb1f142fae0"
+              "example": "3e80a330a405bc916b5ea1de7cafe066"
             }
           },
           {
@@ -555,7 +559,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": 51.4430355
+              "example": 51.0619513267494
             }
           },
           {
@@ -568,7 +572,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": -114.8121883
+              "example": -114.024088493202
             }
           },
           {
@@ -581,7 +585,7 @@
             "schema": {
               "type": "integer",
               "format": "int32",
-              "example": 50
+              "example": 1000
             }
           }
         ],
@@ -659,7 +663,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "e94c3f3ade2a92b39dddebb1f142fae0"
+              "example": "3e80a330a405bc916b5ea1de7cafe066"
             }
           },
           {
@@ -672,7 +676,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": 51.4430355
+              "example": 51.1595931746322
             }
           },
           {
@@ -685,7 +689,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": -114.8121883
+              "example": -113.956983345504
             }
           },
           {
@@ -698,7 +702,7 @@
             "schema": {
               "type": "integer",
               "format": "int32",
-              "example": 50
+              "example": 1000
             }
           }
         ],
@@ -776,7 +780,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "e94c3f3ade2a92b39dddebb1f142fae0"
+              "example": "3e80a330a405bc916b5ea1de7cafe066"
             }
           },
           {
@@ -789,7 +793,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": 51.4430355
+              "example": 51.0577791752051
             }
           },
           {
@@ -802,7 +806,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": -114.8121883
+              "example": -114.0268693501519
             }
           },
           {
@@ -815,7 +819,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": 2.5
+              "example": 1.5
             }
           }
         ],
@@ -893,7 +897,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "e94c3f3ade2a92b39dddebb1f142fae0"
+              "example": "3e80a330a405bc916b5ea1de7cafe066"
             }
           },
           {
@@ -906,7 +910,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": 51.4430355
+              "example": 51.4430366
             }
           },
           {
@@ -919,7 +923,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": -114.8121883
+              "example": -114.812189
             }
           },
           {
@@ -932,7 +936,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": 2.5
+              "example": 4.5
             }
           }
         ],
@@ -1010,7 +1014,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "e94c3f3ade2a92b39dddebb1f142fae0"
+              "example": "3e80a330a405bc916b5ea1de7cafe066"
             }
           },
           {
@@ -1023,7 +1027,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": 51.4430355
+              "example": 51.443036
             }
           },
           {
@@ -1036,7 +1040,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": -114.8121883
+              "example": -114.812189
             }
           },
           {
@@ -1049,7 +1053,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": 2.5
+              "example": 4.5
             }
           }
         ],
@@ -1127,7 +1131,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "e94c3f3ade2a92b39dddebb1f142fae0"
+              "example": "3e80a330a405bc916b5ea1de7cafe066"
             }
           },
           {
@@ -1205,7 +1209,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "e94c3f3ade2a92b39dddebb1f142fae0"
+              "example": "3e80a330a405bc916b5ea1de7cafe066"
             }
           },
           {
@@ -1218,7 +1222,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": 50.5
+              "example": 75
             }
           }
         ],
@@ -1296,7 +1300,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": 51.4430355
+              "example": 51.4430385
             }
           },
           {
@@ -1309,7 +1313,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": -114.8121883
+              "example": -114.8121893
             }
           },
           {
@@ -1346,7 +1350,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": 2.5
+              "example": 4.5
             }
           },
           {
@@ -1436,7 +1440,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "e94c3f3ade2a92b39dddebb1f142fae0"
+              "example": "3e80a330a405bc916b5ea1de7cafe066"
             }
           },
           {
@@ -1449,7 +1453,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": 51.4430355
+              "example": 51.0732866
             }
           },
           {
@@ -1462,7 +1466,7 @@
             "schema": {
               "type": "number",
               "format": "double",
-              "example": -114.8121883
+              "example": -114.087972
             }
           }
         ],
@@ -1527,7 +1531,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "e94c3f3ade2a92b39dddebb1f142fae0"
+              "example": "4e1aba573cd20ca93c7b0a4cdbdb4e66"
             }
           }
         ],
@@ -1592,7 +1596,7 @@
             "explode": true,
             "schema": {
               "type": "string",
-              "example": "e94c3f3ade2a92b39dddebb1f142fae0"
+              "example": "4e1aba573cd20ca93c7b0a4cdbdb4e66"
             }
           },
           {
@@ -1605,7 +1609,7 @@
             "schema": {
               "type": "string",
               "format": "date",
-              "example": "2022-04-01"
+              "example": "2022-04-02"
             }
           },
           {
@@ -1618,7 +1622,7 @@
             "schema": {
               "type": "string",
               "format": "date",
-              "example": "2022-04-06"
+              "example": "2022-04-15"
             }
           }
         ],
