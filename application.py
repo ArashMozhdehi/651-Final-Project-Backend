@@ -15,6 +15,7 @@ import pandas as pd
 import math
 import pyrebase
 from urllib.request import urlopen
+from pykalman import KalmanFilter
 # from firebase import firebase
 
 app = Flask(__name__, template_folder='./htmls')
@@ -37,8 +38,8 @@ config = {
   "databaseURL": "https://engo-651-final-project-default-rtdb.firebaseio.com/"
 }
 
-firbase = pyrebase.initialize_app(config)
-database = firbase.database()
+# firbase = pyrebase.initialize_app(config)
+# database = firbase.database()
 
 
 # firebase = firebase.FirebaseApplication("https://engo-651-final-project-default-rtdb.firebaseio.com/", None)
@@ -94,7 +95,9 @@ def base_static_styles(filename):
 
 def cell_auth(token):
     try:
-        user = database.child("tokens").child(token).child("username").get().val()
+        query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/tokens/"+token+"/username.json"
+        user = json.load(urlopen(query_string))
+        # user = database.child("tokens").child(token).child("username").get().val()
         if user != None:
             return user
         else:
@@ -173,14 +176,21 @@ def profile():
             session_id = hashlib.sha256(session_id.encode('utf-8')).hexdigest()
         elif (new_repass != new_pass):
             message = "not_same"
-    passw = database.child("users").child(username).child('password').get().val()
-    weight = database.child("users").child(username).child('weight').get().val()
-    firstname = database.child("users").child(username).child('firstname').get().val()
-    lastname = database.child("users").child(username).child('lastname').get().val()
-    email = database.child("users").child(username).child('email').get().val()
+    query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/password.json"
+    passw = json.load(urlopen(query_string))
+    query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/weight.json"
+    weight = json.load(urlopen(query_string))
+    query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/firstname.json"
+    firstname = json.load(urlopen(query_string))
+    query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/lastname.json"
+    lastname = json.load(urlopen(query_string))
+    query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/email.json"
+    email = json.load(urlopen(query_string))
     try:
-        info = database.child("users").child(username).child('info').get().val()
-        print(info)
+        query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/info.json"
+        info = json.load(urlopen(query_string))
+        # info = database.child("users").child(username).child('info').get().val()
+        # print(info)
     except:
         info = ""
     # print(email )
@@ -230,7 +240,9 @@ def home():
     session_id = request.cookies.get('session_id')
     username = request.cookies.get('username')
     fullname = request.cookies.get('fullname')
-    passw = database.child("users").child(username).child('password').get().val()
+    query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/password.json"
+    passw = json.load(urlopen(query_string))
+    # passw = database.child("users").child(username).child('password').get().val()
     if web_auth(session_id, username, passw):
         return render_template("home.html", username=username, fullname=fullname)
     else:
@@ -241,7 +253,8 @@ def track():
     if request.method == "POST":
         username = request.cookies.get('username')
         session_id = request.cookies.get('session_id')
-        passw = database.child("users").child(username).child('password').get().val()
+        query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/password.json"
+        passw = json.load(urlopen(query_string))
         bike = int(request.args.get('bike'))
         query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/tokens.json?orderBy=%22username%22&equalTo=%22" + username + "%22"
         reqs = json.load(urlopen(query_string))
@@ -256,7 +269,9 @@ def track():
         session_id = request.cookies.get('session_id')
         username = request.cookies.get('username')
         fullname = request.cookies.get('fullname')
-        passw = database.child("users").child(username).child('password').get().val()
+        query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/password.json"
+        passw = json.load(urlopen(query_string))
+        # passw = database.child("users").child(username).child('password').get().val()
         query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/tokens.json?orderBy=%22username%22&equalTo=%22" + username + "%22"
         reqs = json.load(urlopen(query_string))
         num_dev = len(reqs.keys())
@@ -274,7 +289,9 @@ def destination():
     session_id = request.cookies.get('session_id')
     username = request.cookies.get('username')
     fullname = request.cookies.get('fullname')
-    passw = database.child("users").child(username).child('password').get().val()
+    query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/password.json"
+    passw = json.load(urlopen(query_string))
+    # passw = database.child("users").child(username).child('password').get().val()
     if web_auth(session_id, username, passw):
         return render_template("destination.html", username=username, fullname=fullname)
     else:
@@ -310,8 +327,10 @@ def dashboard():
     total_time_week_up = (total_time_week - sum(overall_time[0: 7])/60)
     total_dist_week = sum(overall_dist[days-8: days-1])/1000
     total_dist_week_up = (total_dist_week - sum(overall_dist[0: 7])/1000)
-    print(str(overall_cals[6:]))
-    passw = database.child("users").child(username).child('password').get().val()
+    # print(str(overall_cals[6:]))
+    query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/password.json"
+    passw = json.load(urlopen(query_string))
+    # passw = database.child("users").child(username).child('password').get().val()
     if web_auth(session_id, username, passw):
         return render_template("dashboard.html", total_time_today=int(total_time_today),
         total_time_today_up=int(total_time_today_up), total_dist_today=int(total_dist_today),
@@ -353,8 +372,10 @@ def cal_prams(start, end, username):
     # dateArray = [randint(0,4000)] * days
     # weight = db.execute("SELECT weight FROM public.users WHERE username = :username",
     #     {"username": username}).fetchone()['weight']
-    weight = int(database.child("users").child(username).child("weight").get().val())
-    print(weight)
+    query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/weight.json"
+    weight = int(json.load(urlopen(query_string)))
+    # weight = int(database.child("users").child(username).child("weight").get().val())
+    # print(weight)
     entries = db.execute("SELECT date_trunc('day', timestamp)::date date, timestamp, lat, lng FROM public.trajectories WHERE date_trunc('day', timestamp) >= :startDate AND date_trunc('day', timestamp) <= :endDate AND username = :username order by date desc",
         {"username": username, "startDate":startDate, "endDate":endDate})
     df = pd.DataFrame(entries, columns=['date', 'timestamp', 'lat', 'lng'])
@@ -395,9 +416,11 @@ def login():
             username = request.form.get('username')
             password = request.form.get('password')
             password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-            passw = database.child("users").child(username).child('password').get().val()
-            print(password)
-            print(passw)
+            query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/password.json"
+            passw = json.load(urlopen(query_string))
+            # passw = database.child("users").child(username).child('password').get().val()
+            # print(password)
+            # print(passw)
             if passw != None and len(passw) > 0 and passw == password:
                 # db.execute("INSERT INTO cell_tokens (username, token) VALUES (:username, :token)",
                     # {"username": username, "token": token})
@@ -428,7 +451,9 @@ def login():
                 session_id = request.cookies.get('session_id')
                 username = request.cookies.get('username')
                 fullname = request.cookies.get('fullname')
-                passw = database.child("users").child(username).child('password').get().val()
+                query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/password.json"
+                passw = json.load(urlopen(query_string))
+                # passw = database.child("users").child(username).child('password').get().val()
                 if web_auth(session_id, username, passw):
                     return render_template("home.html", username=username, fullname=fullname)
                 else:
@@ -453,7 +478,9 @@ def cell_signin_api():
         password = hashlib.sha256(password.encode('utf-8')).hexdigest()
         # user = db.execute("SELECT f_name, l_name FROM users WHERE username = :username AND password = :password",
                     # {"username": username, "password": password}).fetchone()
-        passw = database.child("users").child(username).child('password').get().val()
+        query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/password.json"
+        passw = json.load(urlopen(query_string))
+        # passw = database.child("users").child(username).child('password').get().val()
         # pass = user[0].password
         # print (passw)
         if passw != None and len(passw) > 0 and passw == password:
@@ -462,8 +489,12 @@ def cell_signin_api():
                 # {"username": username, "token": token})
             # db.commit()
             data =  {"username": username, "token": token}
-            f_name = database.child("users").child(username).child('firstname').get().val()
-            l_name = database.child("users").child(username).child('lastname').get().val()
+            query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/firstname.json"
+            f_name = json.load(urlopen(query_string))
+            # f_name = database.child("users").child(username).child('firstname').get().val()
+            query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/lastname.json"
+            passw = json.load(urlopen(query_string))
+            # l_name = database.child("users").child(username).child('lastname').get().val()
             res = '{"f_name":"' + f_name + '", "l_name":"' + l_name + '", "token":"' + token + '",' + '"message":"' + 'success' + '"}'
             # res = '{"message":"' + 'login' + '"}'
             database.child("tokens").child(token).set(data)
@@ -545,7 +576,8 @@ def cell_signup_api():
     try:
         # user = database.child("users").order_by_child("username").equal_to(username).get()
         password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        user = database.child("users").child(username).get().val()
+        query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/username.json"
+        user = json.load(urlopen(query_string))
         # if user != None and len(user) > 0:
         print(user)
         if user != None:
@@ -945,7 +977,9 @@ def get_stats():
     try:
         # weight = db.execute("SELECT weight FROM public.users WHERE username = :username",
         #     {"username": username}).fetchone()['weight']
-        weight = int(database.child("users").child(username).child("weight").get().val())
+        query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/weight.json"
+        weight = int(json.load(urlopen(query_string)))
+        # weight = int(database.child("users").child(username).child("weight").get().val())
         entries = db.execute("SELECT date_trunc('day', timestamp)::date date, timestamp, lat, lng FROM public.trajectories WHERE date_trunc('day', timestamp) > CURRENT_DATE - 30 AND username = :username order by date desc",
             {"username": username})
         df = pd.DataFrame(entries, columns=['date', 'timestamp', 'lat', 'lng'])
@@ -996,8 +1030,10 @@ def get_range_stats():
     # dateArray = [randint(0,4000)] * days
     # weight = db.execute("SELECT weight FROM public.users WHERE username = :username",
     #     {"username": username}).fetchone()['weight']
-    weight = int(database.child("users").child(username).child("weight").get().val())
-    print(weight)
+    query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/weight.json"
+    weight = int(json.load(urlopen(query_string)))
+    # weight = int(database.child("users").child(username).child("weight").get().val())
+    # print(weight)
     entries = db.execute("SELECT date_trunc('day', timestamp)::date date, timestamp, lat, lng FROM public.trajectories WHERE date_trunc('day', timestamp) >= :startDate AND date_trunc('day', timestamp) <= :endDate AND username = :username order by date desc",
         {"username": username, "startDate":startDate, "endDate":endDate})
     df = pd.DataFrame(entries, columns=['date', 'timestamp', 'lat', 'lng'])
