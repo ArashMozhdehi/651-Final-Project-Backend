@@ -1046,7 +1046,7 @@ def resetpassword():
             res = json.loads(res)
             return res
         else:
-            res = '{"message":"' + 'success' + '"}'
+            res = '{"message":"' + 'incorrect email' + '"}'
             res = json.loads(res)
             return res
     except:
