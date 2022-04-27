@@ -1,7 +1,6 @@
 ![Banner](/images/banner.png)
 # Bike Assistant :bicyclist: :biking_woman:
 
-<<<<<<< HEAD
 ## Table of Contents
 - [Introdcution](#introduction)
 - [Technologies](#technologies)
@@ -198,6 +197,5 @@ April 2022
 ## 5. Supplementary Information
 - [Application Manual](https://arash-mozhdehi.gitbook.io/bike-assistants-mobile-application/start/splash-screen)
 - [Web Application Manual](https://arash-mozhdehi.gitbook.io/bike-assistant/v/web-based-application/)
->>>>>>> baf7843111aeb028d4307d8b3477fb31be18ff51
 - [Data Specifications](https://arash-mozhdehi.gitbook.io/databases-design/)
 - [API Documentation - Swagger](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0)
