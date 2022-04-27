@@ -458,8 +458,8 @@ def login():
                     return render_template("home.html", username=username, fullname=fullname)
                 else:
                     return render_template("index.html")
-            except Exception as e:
-                print(e.message)
+            except:
+                # print(e.message)
                 return render_template("index.html")
     except Exception as e:
         print(e.message)
