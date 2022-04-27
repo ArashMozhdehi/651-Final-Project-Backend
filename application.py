@@ -1038,12 +1038,17 @@ def resetpassword():
         reqs = json.load(urlopen(query_string))
         keys = [k  for  k in  reqs.keys()]
         username = keys[0]
-        print(username)
-        new_password = hashlib.sha256(new_password.encode('utf-8')).hexdigest()
-        database.child("users").child(username).update({"password": new_password})
-        res = '{"message":"' + 'success' + '"}'
-        res = json.loads(res)
-        return res
+        # print(username)
+        if (username != None):
+            new_password = hashlib.sha256(new_password.encode('utf-8')).hexdigest()
+            database.child("users").child(username).update({"password": new_password})
+            res = '{"message":"' + 'success' + '"}'
+            res = json.loads(res)
+            return res
+        else:
+            res = '{"message":"' + 'success' + '"}'
+            res = json.loads(res)
+            return res
     except:
         res = '{"message":"' + 'error' + '"}'
         res = json.loads(res)
