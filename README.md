@@ -434,16 +434,19 @@ Sent message format is as follows.
 }
 ```
 #### 17. /api/resetpassword: This endpoint is developed to allows the users to reset their password through sending are randomly generated sequence sent to the provided email upon registration through SMTP client. Upon successful update the following message will be sent.
+```
 {
 	"message": "success"
 }
-
+```
 Sent message format is as follows. Password is the new password that and SHA265 is performed on it.
+```
 
 {
 	"email": "amojdehi@gmail.com",
 	"password": “8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918”
 }
+```
 
 ## Supplementary Information
 - [Mobile Application Manual and Documentation]( https://arash-mozhdehi.gitbook.io/bike-assistant/v/mobile-application/)
