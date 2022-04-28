@@ -1,5 +1,5 @@
 ![Banner](/images/banner.png)
-# Bike Assistant :bicyclist: :biking_woman:
+# Bike Assistant – Backend and Web Application :bicyclist: :biking_woman:
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -7,10 +7,11 @@
 - [Functionalities](#functionalities)
 - [API Documentation](#api-documentation)
 - [Supplementary Information](#supplementary-information)
+- [Project Requirements](#project-requirements)
 - [Project Launch](#project-launch)
 
 ## Introduction
-“Bike Assistant” is a software suite aims to provide an aesthetically pleasing and animated UI for cyclists in Calgary to have one-stop supporting service during their journey. The goal of this project is to provide a more convenient, fun and safer cycling experience for Calgarians. “Bike Assistant” consists of an android mobile app and an interactive web map app. This file describes the technologies and technical details applied in this project as well as the functionalities of the web map app. Please refer to [another repo](https://github.com/ArashMozhdehi/ENGO-651-Final-Project-Mobile-UI) of this project for the mobile app details. [Requirement #1 and #10 – apply lab materials in a more complex way and solve a problem]
+“Bike Assistant” is a software suite aims to provide an aesthetically pleasing and animated UI for cyclists in Calgary to have one-stop supporting service during their journey. The goal of this project is to provide a more convenient, fun and safer cycling experience for Calgarians. “Bike Assistant” consists of an android mobile app and an interactive web map app. This file describes the technologies and technical details applied in this project as well as the functionalities of the web map app. Please refer to [another repo](https://github.com/ArashMozhdehi/ENGO-651-Final-Project-Mobile-UI) of this project for the mobile app details. 
 
 ## Technologies
 The following technologies are adopted for this project:
@@ -19,10 +20,10 @@ The following technologies are adopted for this project:
 - Firebase real-time DB as NoSQL database host on Google cloud servers to store the user’s profile and credential;
 - SHA256 to store the user’s password in hash;
 ### 2. Backend API
-- Backend RESTful API powered by Flask library of Python; [Requirement #3 – RESTful API backend]
+- Backend RESTful API powered by Flask library of Python; 
 - Token assignment and token-based authorization and authentication with SHA256;
 ### 3. Web Application
-- HTML, CSS and JS for asynchronous communication and interactive and responsive front-end; [Requirement #9 – interactive frontend]
+- HTML, CSS and JS for asynchronous communication and interactive and responsive front-end; 
 - Material UI and Bootstrap 5 for UI design;
 ### 4. Mobile Application
 - Android Studio IDE for Android-based application development;
@@ -41,7 +42,7 @@ The following technologies are adopted for this project:
 ### 1. Login
 ![LoginWeb](/images/LoginWeb.PNG)
 
-It is a responsive, secure and animated login page. User can login with username and password. [Requirement #4 – authentication]
+It is a responsive, secure and animated login page. User can login with username and password. 
 ### 2. Homepage
 ![HomepageWeb](/images/HomepageWeb.PNG)
 
@@ -50,17 +51,16 @@ There is a menu bar on the right hand side for selecting different applications.
 ### 3. Track Your Bikes
 ![ FindYourBike](/images/FindYourBike.PNG)
 
-It supports tracking of a bike by showing the starting point, destination, bike current location and the recommended route. [Requirement #7 and #8 – using live data set and data analytics using real-time data of IoT device]
-
+It supports tracking of a bike by showing the starting point, destination, bike current location and the recommended route. 
 ### 4. Destinations
 ![ Destination](/images/Destination.PNG)
 
-It shows different types of destinations within Calgary adopted from Open Data Portal that suitable for cyclists, including the historical sites, city events, bike parks and bike parking lots. [Requirement #6 and #7– open data and frequent update data]
+It shows different types of destinations within Calgary adopted from Open Data Portal that suitable for cyclists, including the historical sites, city events, bike parks and bike parking lots. 
 
 ### 5. Statistical Analysis
 ![Statistical Analysis](/images/StatisticalAnalysis.PNG)
 
-It shows the historical cycling statistics, including the cycling duration, traveled distance and calories burnt. The duration and travelled distance for the current day and the total of the week are displayed in figures. There are also graphical presentations for the calories burnt and total distance traveled last 7 days. [Requirement #8 – data analytics using historical data of IoT device]
+It shows the historical cycling statistics, including the cycling duration, traveled distance and calories burnt. The duration and travelled distance for the current day and the total of the week are displayed in figures. There are also graphical presentations for the calories burnt and total distance traveled last 7 days. 
 
 ### 6. Profile
 ![EditProfile](/images/EditProfile.PNG)
@@ -68,7 +68,7 @@ It shows the historical cycling statistics, including the cycling duration, trav
 It shows the user profile, including username, first name, last name, email address, weight, logged in devices and reviews on different places. It also allows user to make changes on the email, weight, password and write something about me.
 
 ## API Documentation
-There are 17 API endpoints built for this project. Please click [here](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0) to see the details with example of each of the API. [Requirement #5 – API documentation in details]
+There are 17 API endpoints built for this project. Please click [here](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0) to see the details with example of each of the API. 
 
 ## Supplementary Information
 - [Mobile Application Manual]( https://arash-mozhdehi.gitbook.io/bike-assistant/v/mobile-application/)
@@ -76,6 +76,36 @@ There are 17 API endpoints built for this project. Please click [here](https://a
 - [Data Specifications](https://arash-mozhdehi.gitbook.io/bike-assistant/)
 - [API Documentation - Swagger](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0)
 - [Mobile UI GitHub Repo](https://github.com/ArashMozhdehi/ENGO-651-Final-Project-Mobile-UI)
+
+## Project Requirements and Achievements
+The deliverables application satisfies the following requirements for the ENGO 651 course project.
+1. "your final project must be sufficiently distinct from the labs in this course, and must be more complex than the labs." : This Mobile Application is far more complex than the lab as it has sophisticated mapping, animation, data collection, data collection, data storage features. (Requirement #1)
+2. "must have a mapping front-end": Two thoroughly customized and fully interactive maps, customized for this application's use, with the ability to be intractably customized by the user as well are presented to show the amenities and the locations in the City of Calgary. The user is also provided with the distance and estimated time of reaching the destinations and amenities. (Requirement #2)
+3. "must have a RESTful API back-end": The application is connected to the RESTful API back-end, powered by Flask library of python. (Requirement #3)
+4. "RESTful API must have authentication": The token connected by the back-end is used for communication with the back-end. (Requirement #4)
+5. “API must be documented in detail on GitHub with example uses”: API documentation is prepared on SwaggerHub with details and examples. Please view the GitHub API Documentation section in the readme file. (Requirement #5)
+6. "must use at least one open data": This application uses the following data sources for the purpose of mapping and data analysis: (Requirement #6)
+   * Open Calgary
+     * Parking lot for the bikes
+     * Historical sites
+     * Ungoing events in the city of Calgary (It only pick the events that are not ended yet)
+     * Calgary's historical sites
+     * Calgary's benches
+     * Calgary's wash rooms
+     * Calgary's water fountains
+     * Calgary's live traffic incidents
+     * Calgary's construction sites
+   * Google's APIs
+     * Google Maps SDKs
+     * Google Directions (For visualizing the bike-friendly route to the destination)
+     * Google Distance Matrix (For measuring the distance between the current location of the user and the destination)
+     * Google Geocoding (For finding the place based on the Zip Code)
+     * Google Geolocation (User's current location)
+     * Google Places (For auto-complete)
+7. "must use at least one live data set": This mobile application uses the current location of the user and Calgary's live traffic incidents as the live data sources. (Requirement #7)
+8. "must perform data analytics using the following data sources": The mobile application performs data analysis on the current location of the user, Calgary's live traffic incidents (another live data source), and construction sites. It sends a notification to the user when he/she approaches those locations. (Requirement #8)
+9. "the front-end must be interactive": This mobile application provides a responsive, interactive, user-friendly, aesthetically pleasing, animated through a Android-based UI. (Requirement #9)
+10. "solve a problem": The purpose of this Mobile application is to allow the users to find bike-friendly destinations, e.g bike park, and the best bike route for them. It also directs the users to the amenities, e.g. wash room, in the city of Calgary. It also provides safety to the users by giving them heads up about the dangers along the road, e.g. incident sites. (Requirement #10)
 
 ## Project Launch
 April 2022
