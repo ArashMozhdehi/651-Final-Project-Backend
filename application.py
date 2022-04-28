@@ -38,8 +38,8 @@ config = {
   "databaseURL": "https://engo-651-final-project-default-rtdb.firebaseio.com/"
 }
 
-# firbase = pyrebase.initialize_app(config)
-# database = firbase.database()
+firbase = pyrebase.initialize_app(config)
+database = firbase.database()
 
 
 # firebase = firebase.FirebaseApplication("https://engo-651-final-project-default-rtdb.firebaseio.com/", None)
