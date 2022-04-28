@@ -574,12 +574,12 @@ def cell_signup_api():
     email = request.args.get('email')
     username = request.args.get('username')
     try:
-        # user = database.child("users").order_by_child("username").equal_to(username).get()
+        user = database.child("users").order_by_child("username").equal_to(username).get()
         password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/username.json"
-        user = json.load(urlopen(query_string))
+        # query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/username.json"
+        # user = json.load(urlopen(query_string))
         # if user != None and len(user) > 0:
-        print(user)
+        # print(user)
         if user != None:
             res = '{"message":"' + 'User already exists' + '"}'
             res = json.loads(res)
@@ -977,9 +977,9 @@ def get_stats():
     try:
         # weight = db.execute("SELECT weight FROM public.users WHERE username = :username",
         #     {"username": username}).fetchone()['weight']
-        query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/weight.json"
-        weight = int(json.load(urlopen(query_string)))
-        # weight = int(database.child("users").child(username).child("weight").get().val())
+        # query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/weight.json"
+        # weight = int(json.load(urlopen(query_string)))
+        weight = int(database.child("users").child(username).child("weight").get().val())
         entries = db.execute("SELECT date_trunc('day', timestamp)::date date, timestamp, lat, lng FROM public.trajectories WHERE date_trunc('day', timestamp) > CURRENT_DATE - 30 AND username = :username order by date desc",
             {"username": username})
         df = pd.DataFrame(entries, columns=['date', 'timestamp', 'lat', 'lng'])
@@ -1030,9 +1030,9 @@ def get_range_stats():
     # dateArray = [randint(0,4000)] * days
     # weight = db.execute("SELECT weight FROM public.users WHERE username = :username",
     #     {"username": username}).fetchone()['weight']
-    query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/weight.json"
-    weight = int(json.load(urlopen(query_string)))
-    # weight = int(database.child("users").child(username).child("weight").get().val())
+    # query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/users/"+username+"/weight.json"
+    # weight = int(json.load(urlopen(query_string)))
+    weight = int(database.child("users").child(username).child("weight").get().val())
     # print(weight)
     entries = db.execute("SELECT date_trunc('day', timestamp)::date date, timestamp, lat, lng FROM public.trajectories WHERE date_trunc('day', timestamp) >= :startDate AND date_trunc('day', timestamp) <= :endDate AND username = :username order by date desc",
         {"username": username, "startDate":startDate, "endDate":endDate})
