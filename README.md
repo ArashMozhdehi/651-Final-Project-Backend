@@ -125,7 +125,12 @@ The user can logout of the system in two ways, conveinently.
 Through receiving the messages for the via MQTT broker it shows the Mobile user's current location. By sending the source, destination, current location of the cyclist, traveling speed, estimated time of arrival, and traveling distance using the Web-Based application parent and loved ones can keep track of the cyclists using MQTT protocol. It shows multiple biker because the application have the ability of multiple login.
 
 <p align="center" width="100%">
-    <img width="90%" src="https://i.imgur.com/1Jjqhkl.gif"> 
+    <img width="90%" src="https://i.imgur.com/6gTc8gi.gif"> 
+</p>
+
+
+<p align="center" width="100%">
+    <img width="90%" src="https://i.imgur.com/QsNskqh.gif"> 
 </p>
 
 ### 4. Destinations
