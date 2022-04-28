@@ -14,6 +14,7 @@
 
 ## Introduction
 The “Bike Assistant” project provides a one-stop service for cyclists in Calgary by providing a more convenient, safer, and fun cycling experience. In fact, this User-Friendly software suite allows the user to conveniently take advantage of the city of the Calgary’s cycling infrastructure and amusement places to spend quality free time. It also allows the users to conveniently find the parking lots for bikes near their workplace or other destinations, such as shopping centers or grocery stores. Users can also keep track of their exercise habit by providing them with the information about the estimated Calories they burnt, how much time they spent cycling and the distance they traveled. To allow the parent to keep their children safe, this software suite allows the parents to be aware of the current location, the destination, the estimate time and distance to the destination, of their children, using a user-friendly Web Application.\
+
 “Bike Assistant” is a full-stack software suite consisting of RESTful Web API endpoint, a Relational Database, a NoSQL Database, a User-Friendly Mobile Application, as well as a User-Friendly Web-Based User Interface. As a powerful software suite merits a fine documentation and tutorial, we used different platforms, GitBook, Swagger, and GitHub’s readme, for the documentation. In this software suite we took advantage advances in **Artificial Intelligence (AI)** and used a **Machine Learning (ML)** algorithm, **Q-Learning**, to improve the user’s experience by providing them with most suited amenities based on their location by performing historical and contextual data analysis. For simplification and noise reduction and smoothing of trajectories, we used **Douglas–Peucker** algorithm and **Kalman filtering** technique.
 
 Please visit the other repository [Mobile Application for Bike Assistant](https://github.com/ArashMozhdehi/ENGO-651-Final-Project-Mobile-UI) for the files and descriptions of the Mobile Application. 
@@ -35,7 +36,6 @@ In Figure 2, you can see the Sequence Diagram of the Web-based Application. For 
     <p align="center" > Figure 2: UML Sequence Diagram</>
 </p>
 
-
 ## Architectural Description
 The compentents of this sofeware suite are, as follows:
 ### 1. Databases
@@ -44,7 +44,7 @@ The compentents of this sofeware suite are, as follows:
 - **Firebase Storage** is used for staroage of user's profile images. The storage structure of Firebase Storage allows storing images in file structure instead of in BLOB/CLOB format.
 
 <p align="center" width="100%">
-    <img width="100%" src="images/erdpng.png"> 
+    <img width="100%" src="images/ENGO 651's ERD.png"> 
     <p align="center" > Figure 3: UML Entity-Relation Diagram</>
 </p>
 
@@ -79,27 +79,55 @@ The compentents of this sofeware suite are, as follows:
 - Google’s Matrix API, Google Place, Google Direction are the other APIs that are used in this web application.
 - We used subscription based messagin protocol to keep track on users’ location, bearing, velocity, source, and destination of the Mobile Application users.
 - We used **Machine Learning** for best amenity's recommendation.
-- jQuery with AJAX without SOAP protocol is used for Async communication;
+- jQuery with AJAX without SOAP protocol is used for Async communication.
 - For simplification and noise reduction and smoothing of trajectories, we used **Douglas–Peucker** algorithm and **Kalman filtering** technique.
-- We used a fromula from "The Compendium of Physical Activities" for Calories burnt calculation;
-- [Gitbook](https://arash-mozhdehi.gitbook.io/bike-assistant/) for comprehensive documentation of this project;
-- [Swagger](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0) for API documentation with examples
+- We used a fromula from "The Compendium of Physical Activities" for Calories burnt calculation.
+- [Gitbook](https://arash-mozhdehi.gitbook.io/bike-assistant/) for comprehensive documentation of this project.
+- [GitBook](https://arash-mozhdehi.gitbook.io/restful-apis-tutorial/) for API documentation with examples.
+- [Swagger](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0) for API documentation with examples.
 
 
 ## Functionalities
 ### 1. Login
-![LoginWeb](/images/LoginWeb.PNG)
 
 It is a responsive, secure and animated login page. User can login with the credntials that they entered upon registration and password. 
-### 2. Homepage
-![HomepageWeb](/images/HomepageWeb.PNG)
 
-There is a menu bar on the right hand side for selecting different applications.
+<!-- [![Watch the video](https://i.imgur.com/mtxx7wG.gif)](https://youtu.be/hdLZNZjTaoE) -->
+
+<p align="center" width="100%">
+    <img width="90%" src="images/mtxx7wG%5B1%5D.gif"> 
+</p>
+
+### 2. Homepage
+
+This aeasthtic dashboard allows access to the other pages.
+
+<!-- ![HomepageWeb](/images/HomepageWeb.PNG) -->
+<p align="center" width="100%">
+    <img width="90%" src="https://i.imgur.com/1Jjqhkl.gif"> 
+</p>
+
+### 3. Logout
+
+The user can logout of the system in two ways, conveinently.
+
+<p align="center" width="100%">
+    <img width="90%" src="https://i.imgur.com/uozUOih.gif"> 
+</p>
+
+<p align="center" width="100%">
+    <img width="90%" src="https://i.imgur.com/fWcMBg5.gif"> 
+</p>
+
+
 
 ### 3. Track Your Bikes
-![ FindYourBike](/images/FindYourBike.PNG)
+Through receiving the messages for the via MQTT broker it shows the Mobile user's current location. By sending the source, destination, current location of the cyclist, traveling speed, estimated time of arrival, and traveling distance using the Web-Based application parent and loved ones can keep track of the cyclists using MQTT protocol. It shows multiple biker because the application have the ability of multiple login.
 
-It supports tracking of a bike by showing the starting point, destination, bike current location and the recommended route. 
+<p align="center" width="100%">
+    <img width="90%" src="https://i.imgur.com/1Jjqhkl.gif"> 
+</p>
+
 ### 4. Destinations
 ![ Destination](/images/Destination.PNG)
 
@@ -113,7 +141,7 @@ It shows the historical cycling statistics, including the cycling duration, trav
 ### 6. Profile
 ![EditProfile](/images/EditProfile.PNG)
 
-It shows the user profile, including username, first name, last name, email address, weight, logged in devices and reviews on different places. It also allows user to make changes on the email, weight, password and write something about me.
+It shows the user profile, including username, first name, last name, email address, weight, logged in devices and reviews on different places. It also allows user to make changes on the email, weight, password and share their info.
 
 ## API Documentation
 There are 17 API endpoints built for this project. Please click [here](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0) to see the details with example of each of the API. 
