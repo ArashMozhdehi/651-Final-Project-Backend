@@ -130,18 +130,21 @@ Through receiving the messages for the via MQTT broker it shows the Mobile user'
 
 
 <p align="center" width="100%">
-    <img width="90%" src="https://i.imgur.com/QsNskqh.gif"> 
+    <img width="90%" src="images/QsNskqh[1].gif"> 
 </p>
 
 ### 4. Destinations
-![ Destination](/images/Destination.PNG)
+This pahe shows different types of destinations, histirocal sites, bike parks, parking lots for the bikes, and ongoing events in the city of Calgary in current day, adopted from Open Data Portal that suitable for cyclists, including the historical sites, city events, bike parks and bike parking lots. The mapping interface allows choosing different layers, different types of mapping views, for example, sattelite or tarrain. To make the interface beautiful, we used clustering method of pinpoints. Each one of the destinations is a pinpoint on the map. Each layer can be hided by toggling and un-toggling the checkboxes to left bottom.
 
-It shows different types of destinations within Calgary adopted from Open Data Portal that suitable for cyclists, including the historical sites, city events, bike parks and bike parking lots. 
+<p align="center" width="100%">
+    <img width="90%" src="images/M13yl4X[1].gif"> 
+</p>
 
 ### 5. Statistical Analysis
+Through beautiful, informative, interactive, and easy to comprehend, Charts and illustrations it shows the 
 ![Statistical Analysis](/images/StatisticalAnalysis.PNG)
 
-It shows the historical cycling statistics, including the cycling duration, traveled distance and calories burnt. The duration and travelled distance for the current day and the total of the week are displayed in figures. There are also graphical presentations for the calories burnt and total distance traveled last 7 days. 
+It shows the historical cycling statistics, including the cycling duration, traveled distance and Calories burnt. The duration and travelled distance for the current day and the total of the week are displayed in figures. There are also graphical presentations for the calories burnt and total distance traveled last 7 days. 
 
 ### 6. Profile
 ![EditProfile](/images/EditProfile.PNG)
