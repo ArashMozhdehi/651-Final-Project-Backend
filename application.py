@@ -381,6 +381,13 @@ def cal_prams(start, end, username):
         {"username": username, "startDate":startDate, "endDate":endDate})
     df = pd.DataFrame(entries, columns=['date', 'timestamp', 'lat', 'lng'])
     # print(df)
+    # df_old = pd.DataFrame(entries, columns=['date', 'timestamp', 'lat', 'lng'])
+    df_new = df[['date', 'timestamp']]
+    array = df.to_numpy()[:,2:]
+    array = kalman_smoothing(array)
+    print(array.shape)
+    df_new['lat'] = array[:,0].tolist()
+    df_new['lng'] = array[:,1].tolist()
     try:
         prev = df.iloc[0]
         for index, entry in df[1:].iterrows():
@@ -984,6 +991,13 @@ def get_stats():
         entries = db.execute("SELECT date_trunc('day', timestamp)::date date, timestamp, lat, lng FROM public.trajectories WHERE date_trunc('day', timestamp) > CURRENT_DATE - 30 AND username = :username order by date desc",
             {"username": username})
         df = pd.DataFrame(entries, columns=['date', 'timestamp', 'lat', 'lng'])
+        # kalman_smoothing(array)
+        # df_old = pd.DataFrame(entries, columns=['date', 'timestamp', 'lat', 'lng'])
+        df_new = df[['date', 'timestamp']]
+        array = df.to_numpy()[:,2:]
+        array = kalman_smoothing(array)
+        df_new['lat'] = array[:,0].tolist()
+        df_new['lng'] = array[:,1].tolist()
         prev = df.iloc[0]
         for index, entry in df[1:].iterrows():
             x = (prev['lat'], prev['lng'])
@@ -1011,6 +1025,7 @@ def get_stats():
         res = json.loads(res)
         return res
     except Exception as e:
+        print(e.message)
         res = json.loads('{"message":"' + 'error' + '"}')
         return res
     res = json.loads('{"message":"' + 'error' + '"}')
@@ -1090,3 +1105,20 @@ def resetpassword():
         res = '{"message":"' + 'error' + '"}'
         res = json.loads(res)
         return res
+
+
+def kalman_smoothing(array):
+    try:
+        initial_state_mean = [array[0, 0],
+                          0,
+                          array[0, 1],
+                          0]
+        transition_matrix = [[1, 1, 0, 0], [0, 1, 0, 0], [0, 0, 1, 1], [0, 0, 0, 1]]
+        observation_matrix = [[1, 0, 0, 0], [0, 0, 1, 0]]
+        kf1 = KalmanFilter(transition_matrices = transition_matrix, observation_matrices = observation_matrix, initial_state_mean = initial_state_mean)
+        kf1 = kf1.em(array, n_iter=5)
+        # array = [tuple(row) for row in array]
+        (smoothed_state_means, ) = kf1.smooth(array)
+    except:
+        pass
+    return array
