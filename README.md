@@ -181,20 +181,22 @@ Sent message format:
 ```
 
 ## Supplementary Information
-- [Mobile Application Manual]( https://arash-mozhdehi.gitbook.io/bike-assistant/v/mobile-application/)
-- [Web-based Application Manual](https://arash-mozhdehi.gitbook.io/bike-assistant/v/web-based-application/)
-- [Data Specifications](https://arash-mozhdehi.gitbook.io/bike-assistant/)
+- [Mobile Application Manual and Documentation]( https://arash-mozhdehi.gitbook.io/bike-assistant/v/mobile-application/)
+- [Web-based Application Manual and Documentation](https://arash-mozhdehi.gitbook.io/bike-assistant/v/web-based-application/)
+- [Database Documentation](https://arash-mozhdehi.gitbook.io/bike-assistant/)
+- [GitBiik Space](https://arash-mozhdehi.gitbook.io/bike-assistant/)
+- [API Documentation - GitBook](https://arash-mozhdehi.gitbook.io/restful-apis-tutorial/)
 - [API Documentation - Swagger](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0)
 - [Mobile UI GitHub Repo](https://github.com/ArashMozhdehi/ENGO-651-Final-Project-Mobile-UI)
 
-## Project Requirements and Achievements
-The deliverables application satisfies the following requirements for the ENGO 651 course project.
-1. "your final project must be sufficiently distinct from the labs in this course, and must be more complex than the labs." : This Mobile Application is far more complex than the lab as it has sophisticated mapping, animation, data collection, data collection, data storage features. (Requirement #1)
-2. "must have a mapping front-end": Two thoroughly customized and fully interactive maps, customized for this application's use, with the ability to be intractably customized by the user as well are presented to show the amenities and the locations in the City of Calgary. The user is also provided with the distance and estimated time of reaching the destinations and amenities. (Requirement #2)
-3. "must have a RESTful API back-end": The application is connected to the RESTful API back-end, powered by Flask library of python. (Requirement #3)
-4. "RESTful API must have authentication": The token connected by the back-end is used for communication with the back-end. (Requirement #4)
-5. “API must be documented in detail on GitHub with example uses”: API documentation is prepared on SwaggerHub with details and examples. Please view the GitHub API Documentation section in the readme file. (Requirement #5)
-6. "must use at least one open data": This application uses the following data sources for the purpose of mapping and data analysis: (Requirement #6)
+## Achievements of API Regarding the Project Requirements
+The API endpoint sets satisfy the following requirements for the ENGO 651 course project.
+
+1. "your final project must be sufficiently distinct from the labs in this course, and must be more complex than the labs." : This API is complex and has 17 endpoint and uses complex algorithms such as Q-Learning for Data Analytic. (Requirement #1)
+2. "must have a RESTful API back-end": The RESTful API back-end is powered by Flask library of python. (Requirement #3)
+3. "RESTful API must have authentication": The token is generated through the performing hash on the concatenation of the user's credentials and a salt value, to allow multiple login. (Requirement #4)
+4. "API must be documented in detail on GitHub with example uses": The API is documented thoroughly with examples using Gitbook, Swagger.io, and in GitHub. (Requirement #5)
+5. "must use at least one open data": This batch of endpoint uses the following open data sources: (Requirement #6)
    * Open Calgary
      * Parking lot for the bikes
      * Historical sites
@@ -212,10 +214,9 @@ The deliverables application satisfies the following requirements for the ENGO 6
      * Google Geocoding (For finding the place based on the Zip Code)
      * Google Geolocation (User's current location)
      * Google Places (For auto-complete)
-7. "must use at least one live data set": This mobile application uses the current location of the user and Calgary's live traffic incidents as the live data sources. (Requirement #7)
-8. "must perform data analytics using the following data sources": The mobile application performs data analysis on the current location of the user, Calgary's live traffic incidents (another live data source), and construction sites. It sends a notification to the user when he/she approaches those locations. (Requirement #8)
-9. "the front-end must be interactive": This mobile application provides a responsive, interactive, user-friendly, aesthetically pleasing, animated through a Android-based UI. (Requirement #9)
-10. "solve a problem": The purpose of this Mobile application is to allow the users to find bike-friendly destinations, e.g bike park, and the best bike route for them. It also directs the users to the amenities, e.g. wash room, in the city of Calgary. It also provides safety to the users by giving them heads up about the dangers along the road, e.g. incident sites. (Requirement #10)
+6. "must use at least one live data set": It uses the location data from the IoT devices to provide statistical analysis on the user's activity and behavior, how much Calories they burn within a specific time range. (Requirement #7)
+7. "must perform data analytics using the following data sources": As mentioned in the previous bullet-point, it preforms statistical analysis on users' location provided by their phones(the historical data of the IoT device). These API's endpoint batches also perform analysis on the user's current location(the real-time data of an IoT devices), the data provided by the Open Calgary, e.g. toilets', water fountains', and benches' locations (the historical data) and search for the matches within a range(contextual geo-spatial data relevant to the data collected by the devices). In the next step using a Q-Learning-based algorithms tries to find the best toilet within the range using the users' feedbacks as reward.
+8. "solve a problem": The purpose of this API endpoint batch is to provide convenience (choosing the convenient amenities based on the users feedback) and safety (by providing safety feedback from the other users) for the users. (Requirement #10)
 
 ## Project Launch
 February 2022
