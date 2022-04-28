@@ -26,6 +26,7 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+kf = KalmanFilter();
 
 config = {
   "apiKey": "AIzaSyCmj02DX8-_GpQiMc35-VUis84LLk4FGcU",
