@@ -18,8 +18,8 @@ The “Bike Assistant” project provides a one-stop service for cyclists in Cal
 Please refer to [Mobile Application for Bike Assistant](https://github.com/ArashMozhdehi/ENGO-651-Final-Project-Mobile-UI) for the files and descriptions of Mobile Application. 
 
 ## Architectural Design
-The following diagram illustrates the archetectural design of this system.
-(/images/Picture1.jpg)
+The following diagram illustrates the archetectural design of this Software Suite.
+![Architectural Design](/images/Picture1.jpg)
 
 
 ## Componenets
