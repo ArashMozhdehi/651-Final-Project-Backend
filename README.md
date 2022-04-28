@@ -18,16 +18,19 @@ The “Bike Assistant” project provides a one-stop service for cyclists in Cal
 Please refer to [Mobile Application for Bike Assistant](https://github.com/ArashMozhdehi/ENGO-651-Final-Project-Mobile-UI) for the files and descriptions of Mobile Application. 
 
 ## Architectural Design
+The following diagram illustrates the archetectural design of this system.
+(/images/Picture1.jpg)
+
 
 ## Componenets
 The compentents of this sofeware suite are, as follows:
 ### 1. Databases
-- PostgreSQL database with PostGIS host on Heroku cloud platform to store user’s activity;
-- Firebase Real-Time DB, a NoSQL database, host on Google cloud servers to store the user’s profile and credential;
+- PostgreSQL database with PostGIS host on Heroku cloud platform to store user’s activity.
+- Firebase Real-Time DB, a NoSQL database, host on Google cloud servers to store the user’s profile and credential.
 - Firebase Storage for staroage of user's profile images. The storage structure of Firebase Storage allows storing images in file structure instead of in BLOB/CLOB format.
-### 2. Backend API
-- Backend RESTful API powered by Flask library of Python; 
-- Token assignment and token-based authorization and authentication with SHA256;
+### 2. Backend RESTful API
+- Backend RESTful API powered by Flask library of Python.
+- Token assignment for secure authorization and authentication .
 ### 3. Web Application
 - HTML, CSS and JS for asynchronous communication and interactive and responsive front-end; 
 - Material UI and Bootstrap 5 for UI design;
