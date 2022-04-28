@@ -109,7 +109,7 @@ This aeasthtic dashboard allows access to the other pages.
 
 ### 3. Logout
 
-The user can logout of the system in two ways, conveinently.
+The user can logout of the system in two ways, conveinently, as shown in the GIFs.
 
 <p align="center" width="100%">
     <img width="90%" src="images/uozUOih[1].gif"> 
@@ -120,8 +120,7 @@ The user can logout of the system in two ways, conveinently.
 </p>
 
 
-
-### 3. Track Your Bikes
+### 4. Track Your Bikes
 Through receiving the messages for the via MQTT broker it shows the Mobile user's current location. By sending the source, destination, current location of the cyclist, traveling speed, estimated time of arrival, and traveling distance using the Web-Based application parent and loved ones can keep track of the cyclists using MQTT protocol. It shows multiple biker because the application have the ability of multiple login.
 
 <p align="center" width="100%">
@@ -133,26 +132,53 @@ Through receiving the messages for the via MQTT broker it shows the Mobile user'
     <img width="90%" src="images/QsNskqh[1].gif"> 
 </p>
 
-### 4. Destinations
-This pahe shows different types of destinations, histirocal sites, bike parks, parking lots for the bikes, and ongoing events in the city of Calgary in current day, adopted from Open Data Portal that suitable for cyclists, including the historical sites, city events, bike parks and bike parking lots. The mapping interface allows choosing different layers, different types of mapping views, for example, sattelite or tarrain. To make the interface beautiful, we used clustering method of pinpoints. Each one of the destinations is a pinpoint on the map. Each layer can be hided by toggling and un-toggling the checkboxes to left bottom.
+### 5. Destinations
+This pahe shows different types of destinations, histirocal sites, bike parks, parking lots for the bikes, and ongoing events in the city of Calgary in current day, adopted from Open Data Portal that suitable for cyclists, including the historical sites, city events, bike parks and bike parking lots. The mapping interface allows choosing different layers, different types of mapping views, for example, sattelite or tarrain. To make the interface beautiful, we used clustering method of pinpoints. Each one of the destinations is a pinpoint on the map. Each layer can be hided by toggling and un-toggling the checkboxes to left bottom. 
 
 <p align="center" width="100%">
     <img width="90%" src="images/M13yl4X[1].gif"> 
 </p>
 
-### 5. Statistical Analysis
-Through beautiful, informative, interactive, and easy to comprehend, Charts and illustrations it shows the 
-![Statistical Analysis](/images/StatisticalAnalysis.PNG)
+### 6. Statistical Analysis
+Through animated, beautiful, informative, interactive, and easy to comprehend, Charts and illustrations it shows the the total distance, total traveling time of the current day and current week travelled by the cyclist, through histrical data analysis. They also compare the numbers for the last day and last week. The two charts from left to right illustrate the Calories burnt for the lst 10 days, and the distances traveled for the last 7 days. For simplification and noise reduction and smoothing of trajectories, we used Douglas–Peucker algorithm and Kalman filtering technique.
 
-It shows the historical cycling statistics, including the cycling duration, traveled distance and Calories burnt. The duration and travelled distance for the current day and the total of the week are displayed in figures. There are also graphical presentations for the calories burnt and total distance traveled last 7 days. 
+<p align="center" width="100%">
+    <img width="90%" src="images/lAAh1Bh[1].gif"> 
+</p>
 
-### 6. Profile
+### 7. Profile
+
+It shows the user profile, including username, first name, last name, email address, weight, number of the logged in devices, number of the reviews on different destinations submitted by the user, and the number of feedbacks for amenities that user submitted. It also allows user to make changes on the email, weight, password and share their info. The circular images show the user's profile image, restived from Firebase Storage. Through this interface the users are allowed to change their password, email address, weight, and their profile infor message to share their story.
+
 ![EditProfile](/images/EditProfile.PNG)
 
-It shows the user profile, including username, first name, last name, email address, weight, logged in devices and reviews on different places. It also allows user to make changes on the email, weight, password and share their info.
+
+
+<p align="center" width="100%">
+    <img width="90%" src="images/lAAh1Bh[1].gif"> 
+</p>
+
 
 ## API Documentation
 There are 17 API endpoints built for this project. Please click [here](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0) to see the details with example of each of the API. 
+
+### 1. /api/signin: This endpoint allows the front-end to authenticate the user and returns a token that allows the user to access to his/her account in future. Upon successful signin this following message will be returned.
+
+```
+{
+	"message": "success",
+	"f_name": "Arash",
+	"l_name": "Mozhdehi",
+	"token": "cd1f0d7032aacfad6c61e04bc0e11a03"
+}
+```
+Sent message format:
+```
+{
+	"username": "amozhdehi",
+	"password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+}
+```
 
 ## Supplementary Information
 - [Mobile Application Manual]( https://arash-mozhdehi.gitbook.io/bike-assistant/v/mobile-application/)
