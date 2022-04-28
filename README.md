@@ -3,9 +3,9 @@
 
 ## Table of Contents
 - [Introduction](#introduction)
-- [Architectural Design](#architectural-design)
-- [UML Sequence Diagram](#uml-sequence)
-- [Architectural Description](#componenets)
+- [UML Architectural Design](#uml-architectural-design)
+- [UML Sequence Diagram](#uml-sequence-diagram)
+- [Architectural Description](#architectural-description)
 - [Functionalities](#functionalities)
 - [API Documentation](#api-documentation)
 - [Supplementary Information](#supplementary-information)
@@ -13,40 +13,76 @@
 - [Project Launch](#project-launch)
 
 ## Introduction
-The “Bike Assistant” project provides a one-stop service for cyclists in Calgary by providing a more convenient, safer, and fun cycling experience. In fact, this User-Friendly software suite allows the user to conveniently take advantage of the city of the Calgary’s cycling infrastructure and amusement places to spend quality free time. It also allows the users to conveniently find the parking lots for bikes near their workplace or other destinations, such as shopping centers or grocery stores. Users can also keep track of their exercise habit by providing them with the information about the estimated Calories they burnt, how much time they spent cycling and the distance they traveled. To allow the parent to keep their children safe, this software suite allows the parents to be aware of the current location, the destination, the estimate time and distance to the destination, of their children, using a user-friendly Web Application.  
-“Bike Assistant” is a full-stack software suite consisting of RESTful Web API endpoint, a Relational Database, a NoSQL Database, a User-Friendly Mobile Application, as well as a User-Friendly Web-Based User Interface. As a powerful software suite merits a fine documentation and tutorial, we used different platforms, GitBook, Swagger, and GitHub’s readme, for the documentation. In this software suite we took advantage advances in **Artificial Intelligence (AI)** and used a **Machine Learning (ML)** algorithm, **Q-Learning**, to improve the user’s experience by providing them with most suited amenities based on their location by performing historical and contextual data analysis. For simplification and noise reduction and smoothing of trejectories, we used **Douglas–Peucker** algorithm and **Kalman filtering** technique.  
-Please refer to [Mobile Application for Bike Assistant](https://github.com/ArashMozhdehi/ENGO-651-Final-Project-Mobile-UI) for the files and descriptions of Mobile Application. 
+The “Bike Assistant” project provides a one-stop service for cyclists in Calgary by providing a more convenient, safer, and fun cycling experience. In fact, this User-Friendly software suite allows the user to conveniently take advantage of the city of the Calgary’s cycling infrastructure and amusement places to spend quality free time. It also allows the users to conveniently find the parking lots for bikes near their workplace or other destinations, such as shopping centers or grocery stores. Users can also keep track of their exercise habit by providing them with the information about the estimated Calories they burnt, how much time they spent cycling and the distance they traveled. To allow the parent to keep their children safe, this software suite allows the parents to be aware of the current location, the destination, the estimate time and distance to the destination, of their children, using a user-friendly Web Application.\
+“Bike Assistant” is a full-stack software suite consisting of RESTful Web API endpoint, a Relational Database, a NoSQL Database, a User-Friendly Mobile Application, as well as a User-Friendly Web-Based User Interface. As a powerful software suite merits a fine documentation and tutorial, we used different platforms, GitBook, Swagger, and GitHub’s readme, for the documentation. In this software suite we took advantage advances in **Artificial Intelligence (AI)** and used a **Machine Learning (ML)** algorithm, **Q-Learning**, to improve the user’s experience by providing them with most suited amenities based on their location by performing historical and contextual data analysis. For simplification and noise reduction and smoothing of trajectories, we used **Douglas–Peucker** algorithm and **Kalman filtering** technique.
 
-## Architectural Design
-The following diagram illustrates the archetectural design of this Software Suite.
+Please visit the other repository [Mobile Application for Bike Assistant](https://github.com/ArashMozhdehi/ENGO-651-Final-Project-Mobile-UI) for the files and descriptions of the Mobile Application. 
+
+## UML Architectural Design
+The Figure 1 illustrates the archetectural design sigram of this Software Suite.
 <p align="center" width="100%">
-    <img width="100%" src="/images/Picture1.jpg)"> 
+    <img width="70%" src="images/software arch.png"> 
+    <p align="center" > Figure 1: UML Diagram for Architectural Design</>
 </p>
 <!-- ![Architectural Design](/images/Picture1.jpg) -->
 
+## UML Sequence Diagram
 
-## Componenets
+In Figure 2, you can see the Sequence Diagram of the Web-based Application. For the Sequence Diagram of the Mobile Application
+
+<p align="center" width="100%">
+    <img width="100%" src="images/Web UI Sequence Diagram.png"> 
+    <p align="center" > Figure 2: UML Sequence Diagram</>
+</p>
+
+
+## Architectural Description
 The compentents of this sofeware suite are, as follows:
 ### 1. Databases
-- PostgreSQL database with PostGIS host on Heroku cloud platform to store user’s activity.
-- Firebase Real-Time DB, a NoSQL database, host on Google cloud servers to store the user’s profile and credential.
-- Firebase Storage for staroage of user's profile images. The storage structure of Firebase Storage allows storing images in file structure instead of in BLOB/CLOB format.
+- PostgreSQL database with PostGIS host on Heroku cloud platform to store user’s activity. Figure 3, shows the UML Entity-Relation Diagram.
+- **Firebase Real-Time DB**, a NoSQL database, host on Google cloud servers to store the user’s profile and credential. In Figure 4, the data storage model of this Real-Time DB is observable. We used Firebase Real-Time DB, for subscribing and real-time update upon data changes.
+- **Firebase Storage** is used for staroage of user's profile images. The storage structure of Firebase Storage allows storing images in file structure instead of in BLOB/CLOB format.
+
+<p align="center" width="100%">
+    <img width="100%" src="images/erdpng.png"> 
+    <p align="center" > Figure 3: UML Entity-Relation Diagram</>
+</p>
+
+<p align="center" width="100%">
+    <img width="100%" src="images/Firebase RT DB.png"> 
+    <p align="center" > Figure 4: Firebase Real-Time DB's storage model</>
+</p>
+
+<p align="center" width="100%">
+    <img width="100%" src="images/firebase Storage.png"> 
+    <p align="center" > Figure 5: Firebase Storage's storage model</>
+</p>
+
 ### 2. Backend RESTful API
 - Backend RESTful API powered by Flask library of Python.
-- Token assignment for secure authorization and authentication .
+- Consists of **17 API endpoints**, with over **1,000 lines of code** in Python high-level programming language, that each are explained in detail in GitBook.
+- Token assignment is used for secure authorization and authentication when the API is used.
+- To prevent **Dictionary, Rainbow, and impade Brute Force attacks**, we used an information security method of Salt concatination and Hasing using SHA256.
 ### 3. Web Application
-- HTML, CSS and JS for asynchronous communication and interactive and responsive front-end; 
-- Material UI and Bootstrap 5 for UI design;
+- HTML, CSS and JS for asynchronous communication and interactive and responsive front-end.
+- Web-UI consist of 12 html pages, 9 CSS stylesheet files. 8 .js script files in JavaScript with over **5,000 lines of code**. 
+- It also consists of 18 routes and methods in Python.
+- Material UI and Bootstrap 5 for aesthetic an interactive UI design.
+- For the **Asynchronous** communication, to improve UX, we used jQuery with **AJAX** without SOAP protocol to take advantage of JSON format instead of XML.
 ### 4. Mobile Application
-- Android Studio IDE for Android-based application development;
+- It consist of 27 Java classes with over **15,00 lines of code**.
+- It also consists of 27 layout designs with over **9000 lines of code** in XML.
+- 
 ### 5. Others
-- Google Map SDK for map visualization and a mapping frontend;
-- Google’s Matrix API and Google Direction (contextual geospatial data) for data analytics;
-- MQTT protocol from broker to keep track on users’ location, bearing, velocity, source, and destination of the Mobile Application users
-- Artificial Intelligence for best place recommendation; 
-- jQuery with AJAX without SOAP protocol for Async communication;
-- Formula from "The Compendium of Physical Activities" for Calories burnt calculation;
-- [Gitbook](https://arash-mozhdehi.gitbook.io/bike-assistant/v/web-based-application/) for comprehensive documentation of this project;
+- Google Map JS SDK for map visualization and a mapping frontend.
+- Google Firebase SDK for retrival and storage.
+- Google’s Matrix API, Google Place, Google Direction are the other APIs that are used in this web application.
+- We used subscription based messagin protocol to keep track on users’ location, bearing, velocity, source, and destination of the Mobile Application users.
+- We used **Machine Learning** for best amenity's recommendation.
+- jQuery with AJAX without SOAP protocol is used for Async communication;
+- For simplification and noise reduction and smoothing of trajectories, we used **Douglas–Peucker** algorithm and **Kalman filtering** technique.
+- We used a fromula from "The Compendium of Physical Activities" for Calories burnt calculation;
+- [Gitbook](https://arash-mozhdehi.gitbook.io/bike-assistant/) for comprehensive documentation of this project;
 - [Swagger](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0) for API documentation with examples
 
 
@@ -54,7 +90,7 @@ The compentents of this sofeware suite are, as follows:
 ### 1. Login
 ![LoginWeb](/images/LoginWeb.PNG)
 
-It is a responsive, secure and animated login page. User can login with username and password. 
+It is a responsive, secure and animated login page. User can login with the credntials that they entered upon registration and password. 
 ### 2. Homepage
 ![HomepageWeb](/images/HomepageWeb.PNG)
 
