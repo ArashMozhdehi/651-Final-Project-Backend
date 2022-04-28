@@ -160,7 +160,7 @@ It shows the user profile, including username, first name, last name, email addr
 
 
 ## API Documentation
-There are 17 API endpoints built for this project. Please click [here](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0) to see the details with example of each of the API. 
+There are 17 API endpoints built for this project. Please click [here for gitbook](https://arash-mozhdehi.gitbook.io/restful-apis-tutorial/) or [here for swagger](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0) to see the details with example of each of the API. 
 
 ### 1. /api/signin: This endpoint allows the front-end to authenticate the user and returns a token that allows the user to access to his/her account in future. Upon successful signin this following message will be returned.
 
@@ -179,6 +179,79 @@ Sent message format:
 	"password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
 }
 ```
+
+### 2. /api/signout: This endpoint allows the user to sign out of the system. 
+
+```
+Upon successful signout this following message will be returned.
+{
+	"message": "success"
+}
+```
+Sent message format:
+```
+{
+	"token": "cd1f0d7032aacfad6c61e04bc0e11a03"
+}
+```
+### 3. /api/signup: This endpoint allows the user to sign out of the system. Upon successful signup this following message will be returned.
+
+```
+{
+	"message": "success"
+}
+```
+Sent message format:
+```
+{
+	"username": "amozhdehi",
+	"fname": "Arash",
+	"lname": "Mozhdehi",
+	"password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+	“weight”: 71,
+	“email”: “amojdehi@gmail.com”
+}
+```
+### 4. /api/destinations_feedbacks: This endpoint returns the list of the feedbacks submitted by the users for the corresponding destination which can be a historical place, an event in the city, park in the city or a parking lot. Upon successful retrieval of following message will be returned.
+```
+{
+	"message": "success",
+	"rate": 2.5,
+	"votes": 120,
+	"feedbacks": \[
+{"rate": 3, "feedback": "Average Place."},
+{"rate": 1, "feedback": "Didn't like the place."}\]
+}
+```
+Sent message format:
+```
+{
+	"token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+	"lat": 51.344355,
+	"lng": -114.435454,
+	"type": “historical”,
+	“username”: “amozhdehi”,
+“name”: “St. Andrew’s United Church”
+}
+```
+### 5.	/api/gototoilet: This endpoint returns the best toilet's location for the user with a radius chosen by the user. Upon successful retrieval and contextual and historical data analysis the following message will be returned.
+```
+{
+	"message": "success",
+	"lat": 51.4430356,
+	"lng": -114.8121884
+}
+```
+The sent coordinates are the current user location. Sent message format is as follows.
+```
+{
+	"token": " cd1f0d7032aacfad6c61e04bc0e11a03",
+	"lat": 51.4430356,
+	"lng": -114.8121884,
+	"radius": 100,
+}
+```
+
 
 ## Supplementary Information
 - [Mobile Application Manual and Documentation]( https://arash-mozhdehi.gitbook.io/bike-assistant/v/mobile-application/)
