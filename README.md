@@ -9,7 +9,8 @@
 - [Functionalities](#functionalities)
 - [API Documentation](#api-documentation)
 - [Supplementary Information](#supplementary-information)
-- [Project Requirements](#project-requirements)
+- [Achievements of API Regarding the Project Requirements](#achievements-of-api-regarding-the-project-requirements)
+- [Achievements of Web-UI Regarding the Project Requirements](#achievements-of-web-i-regarding-the-project-requirements)
 - [Project Launch](#project-launch)
 
 ## Introduction
@@ -485,6 +486,15 @@ The API endpoint sets satisfy the following requirements for the ENGO 651 course
 6. "must use at least one live data set": It uses the location data from the IoT devices to provide statistical analysis on the user's activity and behavior, how much Calories they burn within a specific time range. (Requirement #7)
 7. "must perform data analytics using the following data sources": As mentioned in the previous bullet-point, it preforms statistical analysis on users' location provided by their phones(the historical data of the IoT device). These API's endpoint batches also perform analysis on the user's current location(the real-time data of an IoT devices), the data provided by the Open Calgary, e.g. toilets', water fountains', and benches' locations (the historical data) and search for the matches within a range(contextual geo-spatial data relevant to the data collected by the devices). In the next step using a Q-Learning-based algorithms tries to find the best toilet within the range using the users' feedbacks as reward.
 8. "solve a problem": The purpose of this API endpoint batch is to provide convenience (choosing the convenient amenities based on the users feedback) and safety (by providing safety feedback from the other users) for the users. (Requirement #10)
+
+## Achievements of Web-UI Regarding the Project Requirements
+This Web-Based application satisfies the following requirements for the ENGO 651 course project.
+1. "must have a mapping front-end" : The Google Map SDK is one of the APIs used for visualizing the locations on the map. (Requirements #2)
+2. "must use at least one live data set": It receives the messages published by the mobile application through MQTT protocol from the broker and visualizes the path, origin, destination and the current location. It also provides useful information about the the speed of the bicycle, remaining time and distance of the trip, as well as the total duration and distance of the trip. (Requirements #7)
+3. "must perform data analytics using the following data sources": It perform data analysis on the data from Google's Martix API, Google Direction (contextual geospatial data) and IoT devices' location and speed (Live Data) , and visualizes them on the map using the Info Windows and Polylines. (Requirements #8)
+4. "the front-end must be interactive": It provides a responsive, interactive(Using various JS functions as well as the CSS powered animations), user-friendly, aesthetically pleasing, animated UI. (Requirements #9)
+5. "solve a problem": The purpose of this application, as part of the whole software suite, is to provide safety for the users. (Requirements #10)
+
 
 ## Project Launch
 February 2022
