@@ -162,8 +162,7 @@ It shows the user profile, including username, first name, last name, email addr
 ## API Documentation
 There are 17 API endpoints built for this project. Please click [here for gitbook](https://arash-mozhdehi.gitbook.io/restful-apis-tutorial/) or [here for swagger](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0) to see the details with example of each of the API. 
 
-### 1. /api/signin: This endpoint allows the front-end to authenticate the user and returns a token that allows the user to access to his/her account in future. Upon successful signin this following message will be returned.
-
+#### 1. /api/signin: This endpoint allows the front-end to authenticate the user and returns a token that allows the user to access to his/her account in future. Upon successful signin this following message will be returned.
 ```
 {
 	"message": "success",
@@ -180,8 +179,7 @@ Sent message format:
 }
 ```
 
-### 2. /api/signout: This endpoint allows the user to sign out of the system. 
-
+#### 2. /api/signout: This endpoint allows the user to sign out of the system. 
 ```
 Upon successful signout this following message will be returned.
 {
@@ -194,8 +192,8 @@ Sent message format:
 	"token": "cd1f0d7032aacfad6c61e04bc0e11a03"
 }
 ```
-### 3. /api/signup: This endpoint allows the user to sign out of the system. Upon successful signup this following message will be returned.
 
+#### 3. /api/signup: This endpoint allows the user to sign out of the system. Upon successful signup this following message will be returned.
 ```
 {
 	"message": "success"
@@ -212,7 +210,8 @@ Sent message format:
 	“email”: “amojdehi@gmail.com”
 }
 ```
-### 4. /api/destinations_feedbacks: This endpoint returns the list of the feedbacks submitted by the users for the corresponding destination which can be a historical place, an event in the city, park in the city or a parking lot. Upon successful retrieval of following message will be returned.
+
+#### 4. /api/destinations_feedbacks: This endpoint returns the list of the feedbacks submitted by the users for the corresponding destination which can be a historical place, an event in the city, park in the city or a parking lot. Upon successful retrieval of following message will be returned.
 ```
 {
 	"message": "success",
@@ -233,8 +232,10 @@ Sent message format:
 	“username”: “amozhdehi”,
 “name”: “St. Andrew’s United Church”
 }
+
 ```
-### 5.	/api/gototoilet: This endpoint returns the best toilet's location for the user with a radius chosen by the user. Upon successful retrieval and contextual and historical data analysis the following message will be returned.
+
+#### 5.	/api/gototoilet: This endpoint returns the best toilet's location for the user with a radius chosen by the user. Upon successful retrieval and contextual and historical data analysis the following message will be returned.
 ```
 {
 	"message": "success",
@@ -252,6 +253,197 @@ The sent coordinates are the current user location. Sent message format is as fo
 }
 ```
 
+#### 6.	/api/gotobench: This endpoint returns the best bech's location for the user with a radius chosen by the user. Upon successful retrieval and contextual and historical data analysis the following message will be returned.
+```
+{
+	"message": "success",
+	"lat": 51.4430356,
+	"lng": -114.8121884
+}
+```
+The sent coordinates are the current user location. Sent message format is as follows.
+```
+{
+	"token": " cd1f0d7032aacfad6c61e04bc0e11a03",
+	"lat": 51.4430356,
+	"lng": -114.8121884,
+	"radius": 100,
+}
+```
+
+#### 7.	/api/gotowater: This endpoint returns the best water fountain's location for the user with a radius chosen by the user. Upon successful retrieval and contextual and historical data analysis the following message will be returned.
+```
+{
+	"message": "success",
+	"lat": 51.4430356,
+	"lng": -114.8121884
+}
+```
+The sent coordinates are the current user location. Sent message format is as follows.
+```
+{
+	"token": " cd1f0d7032aacfad6c61e04bc0e11a03",
+	"lat": 51.4430356,
+	"lng": -114.8121884,
+	"radius": 100,
+}
+```
+
+#### 8.	/api/benchfeedback: This endpoint adds the user's feedback for the corresponding amenity in the database to be used by the application for the suggesting to the users in the future. Upon successful storage following message will be sent.
+```
+{
+	"message": "success",
+}
+```
+The sent coordinates are the current user location. Sent message format is as follows.
+```
+{
+        "token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+        "lat": 51.223,
+        "lng": -114.223,
+        "rate": 2		
+}
+```
+
+#### 9.	/api/waterfeedback: This endpoint adds the user's feedback for the corresponding amenity in the database to be used by the application for the suggesting to the users in the future. Upon successful storage following message will be sent.
+```
+{
+	"message": "success",
+}
+```
+The sent coordinates are the current user location. Sent message format is as follows.
+```
+{
+        "token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+        "lat": 51.223,
+        "lng": -114.223,
+        "rate": 2		
+}
+```
+
+#### 10. /api/toiletfeedback: This endpoint adds the user's feedback for the corresponding amenity in the database to be used by the application for the suggesting to the users in the future. Upon successful storage following message will be sent.
+```
+{
+	"message": "success",
+}
+```
+The sent coordinates are the current user location. Sent message format is as follows.
+```
+{
+        "token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+        "lat": 51.223,
+        "lng": -114.223,
+        "rate": 2		
+}
+```
+
+#### 11. This endpoint allows the user to change their account's password. Upon successful update following message will be sent.
+```
+{
+	"message": "success"
+}
+```
+Sent message format is as follows. The password is hashed using SHA256.
+```
+{
+        "token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+        "password": “8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918”
+	
+}
+```
+
+#### 12. /api/changeweight: This endpoint allows the user to change their weight in profile. Upon successful update following message will be sent.
+```
+{
+	"message": "success"
+}
+```
+Sent message format is as follows. The password is hashed using SHA256.
+```
+{
+        "token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+        "weight": 60
+	
+}
+```
+
+#### 13. /api/feedback: This endpoint adds the user's feedback and comment for the corresponding destination in the database to be used by other users for choosing the place in the future. Upon successful storage following message will be sent.
+```
+{
+	"message": "success"
+}
+```
+Sent message format is as follows. The reason that we store that name an type of the place as well as the coordinates is that currently there are events with the same coordinates and type to overcome this issue we store the name of the destination, as well.
+```
+{
+        "token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+        "lat": 51.223,
+        "lng": -114.223,
+        "rate": 2,
+        "name": “St. Andrew’s United Church”,
+        “type”: historical,
+	 “comment”: “Nice place”
+}
+```
+
+#### 14. /api/location_update: Receives the user's new location and insert it in the database to be used by the application for statistical analysis on the user's activity and presenting it to the user in the future. Upon successful storage following message will be sent.
+```
+{
+	"message": "success"
+}
+```
+Sent message format is as follows.
+```
+{
+	"token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+        "lat": 51.223,
+        "lng": -114.223
+}
+```
+#### 15. /api/get_stats: Returns the values for the amount of kilo Calories burnt by the user during the last 7 days, as well as the average kilo calories burnt during the last 30 days. Upon successful retrieval the following message will be sent.
+```
+{
+	"message": "success",
+	"weekly": [120, 123, 3500, 0, 0, 0, 5000],
+	"monthly": 1000
+}
+```
+Sent message format is as follows.
+```
+{
+	"token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+}
+
+```
+#### 16. /api/get_range_stats: This endpoint returns the average and aggregated as well as the individual amount of Calories that user burned during the period given. Upon successful retrieval the following message will be sent.
+```
+{
+	"message": "success",
+	"days": 6,
+	"data": [120, 123, 3500, 0, 0, 5000],
+	"average": 1243.23,
+	"total": 8454,
+}
+```
+Sent message format is as follows.
+```
+{
+      	"token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+	“start”: “2022-03-13”,
+	“end”: “2022-03-16”,
+}
+```
+#### 17. /api/resetpassword: This endpoint is developed to allows the users to reset their password through sending are randomly generated sequence sent to the provided email upon registration through SMTP client. Upon successful update the following message will be sent.
+{
+	"message": "success"
+}
+
+Sent message format is as follows. Password is the new password that and SHA265 is performed on it.
+
+{
+	"email": "amojdehi@gmail.com",
+	"password": “8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918”
+}
 
 ## Supplementary Information
 - [Mobile Application Manual and Documentation]( https://arash-mozhdehi.gitbook.io/bike-assistant/v/mobile-application/)
