@@ -104,7 +104,7 @@ This aeasthtic dashboard allows access to the other pages.
 
 <!-- ![HomepageWeb](/images/HomepageWeb.PNG) -->
 <p align="center" width="100%">
-    <img width="90%" src="https://i.imgur.com/1Jjqhkl.gif"> 
+    <img width="90%" src="images/1Jjqhkl[1].gif"> 
 </p>
 
 ### 3. Logout
@@ -112,11 +112,11 @@ This aeasthtic dashboard allows access to the other pages.
 The user can logout of the system in two ways, conveinently.
 
 <p align="center" width="100%">
-    <img width="90%" src="https://i.imgur.com/uozUOih.gif"> 
+    <img width="90%" src="images/uozUOih[1].gif"> 
 </p>
 
 <p align="center" width="100%">
-    <img width="90%" src="https://i.imgur.com/fWcMBg5.gif"> 
+    <img width="90%" src="images/fWcMBg5[1].gif"> 
 </p>
 
 
@@ -125,7 +125,7 @@ The user can logout of the system in two ways, conveinently.
 Through receiving the messages for the via MQTT broker it shows the Mobile user's current location. By sending the source, destination, current location of the cyclist, traveling speed, estimated time of arrival, and traveling distance using the Web-Based application parent and loved ones can keep track of the cyclists using MQTT protocol. It shows multiple biker because the application have the ability of multiple login.
 
 <p align="center" width="100%">
-    <img width="90%" src="https://i.imgur.com/6gTc8gi.gif"> 
+    <img width="90%" src="images/6gTc8gi[1].gif"> 
 </p>
 
 
