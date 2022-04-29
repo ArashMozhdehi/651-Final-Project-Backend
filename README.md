@@ -1,5 +1,5 @@
 ![Banner](/images/banner.png)
-# Bike Assistant – RESTful API Backend and Web Application :bicyclist: :biking_woman:
+:biking_woman: :bicyclist: # Bike Assistant – RESTful API Backend and Web Application :bicyclist: :biking_woman:
 
 ## Table of Contents
 - [Introduction](#introduction)
