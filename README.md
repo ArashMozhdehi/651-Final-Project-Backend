@@ -59,6 +59,7 @@ The compentents of this sofeware suite are, as follows:
     <p align="center" > Figure 5: Firebase Storage's storage model</>
 </p>
 
+
 ### 2. Backend RESTful API
 - Backend RESTful API powered by Flask library of Python.
 - Consists of **17 API endpoints**, with over **1,000 lines of code** in Python high-level programming language, that each are explained in detail in GitBook.
