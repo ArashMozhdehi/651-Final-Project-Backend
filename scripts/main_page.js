@@ -41,10 +41,6 @@ function initialize() {
   const bikeLayer = new google.maps.BicyclingLayer();
   overlayControls(map);
 
-  setTimeout(function () {
-    var locationText = '{"cur_lat":"51.00435788143881","cur_lng":"-114.02503967285156","speed":"0.0","dst_lat":"51.02665248138959","dst_lng":"-113.99399626264213","src_lat":"50.9707283","src_lng":"-114.02914"}';
-    showlocation(locationText);
-  }, 5000);
   MQTTconnect();
 }
 

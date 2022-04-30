@@ -94,18 +94,6 @@ def base_static_scripts(filename):
 def base_static_styles(filename):
     return send_from_directory(app.root_path + '/styles/', filename)
 
-def cell_auth(token):
-    try:
-        # query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/tokens/"+token+"/username.json"
-        # user = json.load(urlopen(query_string))
-        user = database.child("tokens").child(token).child("username").get().val()
-        if user != None:
-            return user
-        else:
-            return False
-            # print(False)
-    except:
-        return False
 
 # @app.route("/", methods=["GET", "POST"])
 # def login():
@@ -384,7 +372,7 @@ def cal_prams(start, end, username):
     # df_old = pd.DataFrame(entries, columns=['date', 'timestamp', 'lat', 'lng'])
     df_new = df[['date', 'timestamp']]
     array = df.to_numpy()[:,2:]
-    array = kalman_smoothing(array)
+    array = douglas_kalman_smoothing(array)
     print(array.shape)
     df_new['lat'] = array[:,0].tolist()
     df_new['lng'] = array[:,1].tolist()
@@ -695,6 +683,19 @@ def gototoilet():
     res = json.loads(res)
     return res
 
+def cell_auth(token):
+    try:
+        # query_string = "https://engo-651-final-project-default-rtdb.firebaseio.com/tokens/"+token+"/username.json"
+        # user = json.load(urlopen(query_string))
+        user = database.child("tokens").child(token).child("username").get().val()
+        if user != None:
+            return user
+        else:
+            return False
+            # print(False)
+    except:
+        return False
+
 @app.route("/api/gotowater", methods=["GET"])
 def gotowater():
     token = request.args.get('token')
@@ -742,6 +743,7 @@ def gotowater():
     res = json.dumps({"message":"error"})
     res = json.loads(res)
     return res
+
 
 @app.route("/api/gotobench", methods=["GET"])
 def gotobench():
@@ -995,7 +997,7 @@ def get_stats():
         # df_old = pd.DataFrame(entries, columns=['date', 'timestamp', 'lat', 'lng'])
         df_new = df[['date', 'timestamp']]
         array = df.to_numpy()[:,2:]
-        array = kalman_smoothing(array)
+        array = douglas_kalman_smoothing(array)
         df_new['lat'] = array[:,0].tolist()
         df_new['lng'] = array[:,1].tolist()
         prev = df.iloc[0]
@@ -1107,7 +1109,7 @@ def resetpassword():
         return res
 
 
-def kalman_smoothing(array):
+def douglas_kalman_smoothing(array):
     try:
         initial_state_mean = [array[0, 0],
                           0,
