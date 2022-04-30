@@ -1,201 +1,501 @@
 ![Banner](/images/banner.png)
-# Bike Assistant :bicyclist: :biking_woman:
+# Bike Assistant – RESTful API Backend and Web Application :bicyclist: :biking_woman:
 
 ## Table of Contents
-- [Introdcution](#introduction)
-- [Technologies](#technologies)
+- [Introduction](#introduction)
+- [UML Architectural Design](#uml-architectural-design)
+- [UML Sequence Diagram](#uml-sequence-diagram)
+- [Architectural Description](#architectural-description)
 - [Functionalities](#functionalities)
-- [Project Launch](#project-launch)
+- [API Documentation](#api-documentation)
 - [Supplementary Information](#supplementary-information)
+- [Achievements of API Regarding the Project Requirements](#achievements-of-api-regarding-the-project-requirements)
+- [Achievements of Web-UI Regarding the Project Requirements](#achievements-of-web-i-regarding-the-project-requirements)
+- [Project Launch](#project-launch)
 
 ## Introduction
-“Bike Assistant” mobile application aims to provide an aesthetically pleasing and animated UI for cyclists in Calgary to have one-stop supporting service during their journey. The goal of this project is to provide a more convenient, fun and safer cycling experience for Calgarians.
+The “Bike Assistant” project provides a one-stop service for cyclists in Calgary by providing a more convenient, safer, and fun cycling experience. In fact, this User-Friendly software suite allows the user to conveniently take advantage of the city of the Calgary’s cycling infrastructure and amusement places to spend quality free time. It also allows the users to conveniently find the parking lots for bikes near their workplace or other destinations, such as shopping centers or grocery stores. Users can also keep track of their exercise habit by providing them with the information about the estimated Calories they burnt, how much time they spent cycling and the distance they traveled. To allow the parent to keep their children safe, this software suite allows the parents to be aware of the current location, the destination, the estimate time and distance to the destination, of their children, using a user-friendly Web Application.\
 
-## Technologies
-The following technologies are adopted for this project:
-- RESTful API powered by Flask library of Python;
-- Backend application developed by Flask library of Python;
-- Database design by PostgreSQL RDBMS and hosted in heroku.
-- Distance travelled calculation by Haversine Distance library of Python;
-- Google Places and Geocoding APIs.
+“Bike Assistant” is a full-stack software suite consisting of RESTful Web API endpoint, a Relational Database, a NoSQL Database, a User-Friendly Mobile Application, as well as a User-Friendly Web-Based User Interface. As a powerful software suite merits a fine documentation and tutorial, we used different platforms, GitBook, Swagger, and GitHub’s readme, for the documentation. In this software suite we took advantage advances in **Artificial Intelligence (AI)** and used a **Machine Learning (ML)** algorithm, **Q-Learning**, to improve the user’s experience by providing them with most suited amenities based on their location by performing historical and contextual data analysis. For simplification and noise reduction and smoothing of trajectories, we used **Douglas–Peucker** algorithm and **Kalman filtering** technique.
+
+Please visit the other repository [Mobile Application for Bike Assistant](https://github.com/ArashMozhdehi/ENGO-651-Final-Project-Mobile-UI) for the files and descriptions of the Mobile Application. 
+
+## UML Architectural Design
+The Figure 1 illustrates the archetectural design sigram of this Software Suite.
+<p align="center" width="100%">
+    <img width="70%" src="images/software arch.png"> 
+    <p align="center" > Figure 1: UML Diagram for Architectural Design</>
+</p>
+<!-- ![Architectural Design](/images/Picture1.jpg) -->
+
+## UML Sequence Diagram
+
+In Figure 2, you can see the Sequence Diagram of the Web-based Application. For the Sequence Diagram of the Mobile Application
+
+<p align="center" width="100%">
+    <img width="100%" src="images/Web UI Sequence Diagram.png"> 
+    <p align="center" > Figure 2: UML Sequence Diagram</>
+</p>
+
+## Architectural Description
+The compentents of this sofeware suite are, as follows:
+### 1. Databases
+- PostgreSQL database with PostGIS host on Heroku cloud platform to store user’s activity. Figure 3, shows the UML Entity-Relation Diagram.
+- **Firebase Real-Time DB**, a NoSQL database, host on Google cloud servers to store the user’s profile and credential. In Figure 4, the data storage model of this Real-Time DB is observable. We used Firebase Real-Time DB, for subscribing and real-time update upon data changes.
+- **Firebase Storage** is used for staroage of user's profile images. The storage structure of Firebase Storage allows storing images in file structure instead of in BLOB/CLOB format.
+
+<p align="center" width="100%">
+    <img width="100%" src="images/ENGO 651's ERD.png"> 
+    <p align="center" > Figure 3: UML Entity-Relation Diagram</>
+</p>
+
+<p align="center" width="100%">
+    <img width="100%" src="images/Firebase RT DB.png"> 
+    <p align="center" > Figure 4: Firebase Real-Time DB's storage model</>
+</p>
+
+<p align="center" width="100%">
+    <img width="100%" src="images/firebase Storage.png"> 
+    <p align="center" > Figure 5: Firebase Storage's storage model</>
+</p>
+
+
+### 2. Backend RESTful API
+- Backend RESTful API powered by Flask library of Python.
+- Consists of **17 API endpoints**, with over **1,000 lines of code** in Python high-level programming language, that each are explained in detail in GitBook.
+- Token assignment is used for secure authorization and authentication when the API is used.
+- To prevent **Dictionary, Rainbow, and impade Brute Force attacks**, we used an information security method of Salt concatination and Hasing using SHA256.
+### 3. Web Application
+- HTML, CSS and JS for asynchronous communication and interactive and responsive front-end.
+- Web-UI consist of 12 html pages, 9 CSS stylesheet files. 8 .js script files in JavaScript with over **5,000 lines of code**. 
+- It also consists of 18 routes and methods in Python.
+- Material UI and Bootstrap 5 for aesthetic an interactive UI design.
+- For the **Asynchronous** communication, to improve UX, we used jQuery with **AJAX** without SOAP protocol to take advantage of JSON format instead of XML.
+### 4. Mobile Application
+- It consist of 27 Java classes with over **15,00 lines of code**.
+- It also consists of 27 layout designs with over **9000 lines of code** in XML.
+- 
+### 5. Others
+- Google Map JS SDK for map visualization and a mapping frontend.
+- Google Firebase SDK for retrival and storage.
+- Google’s Matrix API, Google Place, Google Direction are the other APIs that are used in this web application.
+- We used subscription based messagin protocol to keep track on users’ location, bearing, velocity, source, and destination of the Mobile Application users.
+- We used **Machine Learning** for best amenity's recommendation.
+- jQuery with AJAX without SOAP protocol is used for Async communication.
+- For simplification and noise reduction and smoothing of trajectories, we used **Douglas–Peucker** algorithm and **Kalman filtering** technique.
+- We used a fromula from "The Compendium of Physical Activities" for Calories burnt calculation.
+- [Gitbook](https://arash-mozhdehi.gitbook.io/bike-assistant/) for comprehensive documentation of this project.
+- [GitBook](https://arash-mozhdehi.gitbook.io/restful-apis-tutorial/) for API documentation with examples.
+- [Swagger](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0) for API documentation with examples.
+
 
 ## Functionalities
-### 1. Start
-#### 1.1. Splash Screen
-![Bike Assistant](/images/bikeassistant.PNG)
+### 1. Login
 
-Animated introduction of the mobile application.
-#### 1.2. Internet Connection Checking
-![Internet](/images/internet.PNG)
-=======
-## 1. Introduction
-“Bike Assistant” is a software suite aims to provide an aesthetically pleasing and animated UI for cyclists in Calgary to have one-stop supporting service during their journey. The goal of this project is to provide a more convenient, fun and safer cycling experience for Calgarians. “Bike Assistant” consists of an android mobile app and an interactive web map app.
+It is a responsive, secure and animated login page. User can login with the credntials that they entered upon registration and password. 
 
-## 2. Technologies
-The following technologies are adopted for this project:
-- RESTful API powered by Flask library of Python;
-- Backend application developed by Flask library of Python;
-- Database design by PostgreSQL RDBMS and hosted in Heroku;
-- Distance travelled calculation by Haversine Distance library of Python;
-- Google Map SDK for map visualization and a mapping frontend;
-- Google’s Matrix API and Googel Direction (contextual geospatial data) for data analytics;
-- MQTT protocol from broker to visualize user’s current location, path, origin, destination, travelling speed, remaining time and distance of trip, total duration and distance of trip; and
-- JS functions and CSS for interactive and responsive front-end
+<!-- [![Watch the video](https://i.imgur.com/mtxx7wG.gif)](https://youtu.be/hdLZNZjTaoE) -->
 
-## 3. Functionalities
-### 3.1. Start – Mobile App
-#### 3.1.1. Splash Screen
-![Bike Assistant](/images/bikeassistant.PNG) 
+<p align="center" width="100%">
+    <img width="90%" src="images/mtxx7wG%5B1%5D.gif"> 
+</p>
 
-Animated introduction of the mobile application.
-#### 3.1.2. Internet Connection Checking
-![Internet](/images/internet.PNG) 
->>>>>>> baf7843111aeb028d4307d8b3477fb31be18ff51
+### 2. Homepage
 
-Internet connectivity check to ensure user is able to connect the back-end with real-time and semi-real-time API from the open data portal of the city of Calgary.
-User will be alerted and asked to activate a Wi-Fi or mobile connection if user is not connected to the Internet.
-Use can press exit button to close the application if user does not want to connect to the Internet.
-<<<<<<< HEAD
-### 2. Authentication
-#### 2.1. Login
-![Login](/images/login.PNG)
+This aeasthtic dashboard allows access to the other pages.
 
-It is a secure login system that receives Token from the back-end and stores it in the internal DB. There is secure communication between the flask-based back-end and this Mobile UI. User is required to fill in username and password for login.
-#### 2.2. Registration
-![Registration](/images/registration.PNG)
+<!-- ![HomepageWeb](/images/HomepageWeb.PNG) -->
+<p align="center" width="100%">
+    <img width="90%" src="images/1Jjqhkl[1].gif"> 
+</p>
 
-User is required to provide (i) username, (ii) first name, (iii) last name, (iv) password and (v) weight to create an account. Duplicated username is not allowed and the application will check if the user is already existed. Successful registration will be re-directed to login page with username being auto-filled.
-### 3. Dashboard
-![Location](/images/location.PNG)
+### 3. Logout
 
-User will be asked to allow location permission when reach to the dashboard as the application requires real-time GPS data to provide the best services.
+The user can logout of the system in two ways, conveinently, as shown in the GIFs.
 
-![Dashboard](/images/dashboard.PNG)
+<p align="center" width="100%">
+    <img width="90%" src="images/uozUOih[1].gif"> 
+</p>
 
-User can click on the buttons on the dashboard for different services.
-#### 3.1. Starts
-![Features](/images/features.PNG)
-![Auto](/images/auto.PNG)
+<p align="center" width="100%">
+    <img width="90%" src="images/fWcMBg5[1].gif"> 
+</p>
 
-User can explore the city of Calgary with the mapping front-end. User can select interested type of built-in features or key in (with auto-complete support) a place to find the details of the destination.
 
-**Example:** User can key-in "Uni" and get a list of suggested auto-complete keywords for searching a destination.
+### 4. Track Your Bikes
+Through receiving the messages for the via MQTT broker it shows the Mobile user's current location. By sending the source, destination, current location of the cyclist, traveling speed, estimated time of arrival, and traveling distance using the Web-Based application parent and loved ones can keep track of the cyclists using MQTT protocol. It shows multiple biker because the application have the ability of multiple login.
 
-![Review](/images/rfeedback.PNG)
-![Submit](/images/sfeedback.PNG)
+<p align="center" width="100%">
+    <img width="90%" src="images/6gTc8gi[1].gif"> 
+</p>
 
-User can review and give feedbacks of the selected amenities or type of bike friendly destination.
 
-**Example:** User can rate from 0 – 5 starts and write comment in the text box for feedback submission.
+<p align="center" width="100%">
+    <img width="90%" src="images/QsNskqh[1].gif"> 
+</p>
 
-![Route](/images/route.PNG)
+### 5. Destinations
+This pahe shows different types of destinations, histirocal sites, bike parks, parking lots for the bikes, and ongoing events in the city of Calgary in current day, adopted from Open Data Portal that suitable for cyclists, including the historical sites, city events, bike parks and bike parking lots. The mapping interface allows choosing different layers, different types of mapping views, for example, sattelite or tarrain. To make the interface beautiful, we used clustering method of pinpoints. Each one of the destinations is a pinpoint on the map. Each layer can be hided by toggling and un-toggling the checkboxes to left bottom. 
 
-User can get the recommended route to the selected destination.
+<p align="center" width="100%">
+    <img width="90%" src="images/M13yl4X[1].gif"> 
+</p>
 
-![Alert](/images/alert.PNG)
+### 6. Statistical Analysis
+Through animated, beautiful, informative, interactive, and easy to comprehend, Charts and illustrations it shows the the total distance, total traveling time of the current day and current week travelled by the cyclist, through histrical data analysis. They also compare the numbers for the last day and last week. The two charts from left to right illustrate the Calories burnt for the lst 10 days, and the distances traveled for the last 7 days. For simplification and noise reduction and smoothing of trajectories, we used Douglas–Peucker algorithm and Kalman filtering technique.
 
-When user is approaching within 100m of a traffic incident or construction project site, a warning notification will be sent to user as a safety alerts.
-#### 3.2. Amenities
-![Radius](/images/radius.PNG)
-![Water](/images/wfeedback.PNG)
-=======
-### 3.2. Authentication – Mobile App
-#### 3.2.1. Login 
-![Login](/images/login.PNG) 
+<p align="center" width="100%">
+    <img width="90%" src="images/lAAh1Bh[1].gif"> 
+</p>
 
-It is a secure login system that receives Token from the back-end and stores it in the internal DB. There is secure communication between the flask-based back-end and this Mobile UI. User is required to fill in username and password for login.
-#### 3.2.2. Registration
-![Registration](/images/registration.PNG) 
+### 7. Profile
 
-User is required to provide (i) username, (ii) first name, (iii) last name, (iv) password and (v) weight to create an account. Duplicated username is not allowed and the application will check if the user is already existed. Successful registration will be re-directed to login page with username being auto-filled.
-### 3.3. Dashboard – Mobile App
-![Location](/images/location.PNG) 
+It shows the user profile, including username, first name, last name, email address, weight, number of the logged in devices, number of the reviews on different destinations submitted by the user, and the number of feedbacks for amenities that user submitted. It also allows user to make changes on the email, weight, password and share their info. The circular images show the user's profile image, restived from Firebase Storage. Through this interface the users are allowed to change their password, email address, weight, and their profile infor message to share their story.
 
-User will be asked to allow location permission when reach to the dashboard as the application requires real-time GPS data to provide the best services. 
+![EditProfile](/images/EditProfile.PNG)
 
-![Dashboard](/images/dashboard.PNG) 
 
-User can click on the buttons on the dashboard for different services.
-#### 3.3.1. Starts
-![Features](/images/features.PNG) 
-![Auto](/images/auto.PNG) 
 
-User can explore the city of Calgary with the mapping front-end. User can select interested type of built-in features or key in (with auto-complete support) a place to find the details of the destination. 
+<p align="center" width="100%">
+    <img width="90%" src="images/lAAh1Bh[1].gif"> 
+</p>
 
-**Example:** User can key-in "Uni" and get a list of suggested auto-complete keywords for searching a destination.
 
-![Review](/images/rfeedback.PNG) 
-![Submit](/images/sfeedback.PNG) 
+## API Documentation
+There are 17 API endpoints built for this project. Please click [here for gitbook](https://arash-mozhdehi.gitbook.io/restful-apis-tutorial/) or [here for swagger](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0) to see the details with example of each of the API. 
 
-User can review and give feedbacks of the selected amenities or type of bike friendly destination. 
+#### 1. /api/signin: This endpoint allows the front-end to authenticate the user and returns a token that allows the user to access to his/her account in future. Upon successful signin this following message will be returned.
+```
+{
+	"message": "success",
+	"f_name": "Arash",
+	"l_name": "Mozhdehi",
+	"token": "cd1f0d7032aacfad6c61e04bc0e11a03"
+}
+```
+Sent message format:
+```
+{
+	"username": "amozhdehi",
+	"password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+}
+```
 
-**Example:** User can rate from 0 – 5 starts and write comment in the text box for feedback submission.
+#### 2. /api/signout: This endpoint allows the user to sign out of the system. 
+```
+Upon successful signout this following message will be returned.
+{
+	"message": "success"
+}
+```
+Sent message format:
+```
+{
+	"token": "cd1f0d7032aacfad6c61e04bc0e11a03"
+}
+```
 
-![Route](/images/route.PNG) 
+#### 3. /api/signup: This endpoint allows the user to sign out of the system. Upon successful signup this following message will be returned.
+```
+{
+	"message": "success"
+}
+```
+Sent message format:
+```
+{
+	"username": "amozhdehi",
+	"fname": "Arash",
+	"lname": "Mozhdehi",
+	"password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+	“weight”: 71,
+	“email”: “amojdehi@gmail.com”
+}
+```
 
-User can get the recommended route to the selected destination. 
+#### 4. /api/destinations_feedbacks: This endpoint returns the list of the feedbacks submitted by the users for the corresponding destination which can be a historical place, an event in the city, park in the city or a parking lot. Upon successful retrieval of following message will be returned.
+```
+{
+	"message": "success",
+	"rate": 2.5,
+	"votes": 120,
+	"feedbacks": \[
+{"rate": 3, "feedback": "Average Place."},
+{"rate": 1, "feedback": "Didn't like the place."}\]
+}
+```
+Sent message format:
+```
+{
+	"token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+	"lat": 51.344355,
+	"lng": -114.435454,
+	"type": “historical”,
+	“username”: “amozhdehi”,
+“name”: “St. Andrew’s United Church”
+}
 
-![Alert](/images/alert.PNG) 
+```
 
-When user is approaching within 100m of a traffic incident or construction project site, a warning notification will be sent to user as a safety alerts.
-#### 3.3.2. Amenities
-![Radius](/images/radius.PNG) 
-![Water](/images/wfeedback.PNG) 
->>>>>>> baf7843111aeb028d4307d8b3477fb31be18ff51
+#### 5.	/api/gototoilet: This endpoint returns the best toilet's location for the user with a radius chosen by the user. Upon successful retrieval and contextual and historical data analysis the following message will be returned.
+```
+{
+	"message": "success",
+	"lat": 51.4430356,
+	"lng": -114.8121884
+}
+```
+The sent coordinates are the current user location. Sent message format is as follows.
+```
+{
+	"token": " cd1f0d7032aacfad6c61e04bc0e11a03",
+	"lat": 51.4430356,
+	"lng": -114.8121884,
+	"radius": 100,
+}
+```
 
-The application supports facilities types of (i) water fountains, (ii) toilets and (iii) bench for searching, routing and providing feedbacks.
+#### 6.	/api/gotobench: This endpoint returns the best bech's location for the user with a radius chosen by the user. Upon successful retrieval and contextual and historical data analysis the following message will be returned.
+```
+{
+	"message": "success",
+	"lat": 51.4430356,
+	"lng": -114.8121884
+}
+```
+The sent coordinates are the current user location. Sent message format is as follows.
+```
+{
+	"token": " cd1f0d7032aacfad6c61e04bc0e11a03",
+	"lat": 51.4430356,
+	"lng": -114.8121884,
+	"radius": 100,
+}
+```
 
-**Example:** User can input a distance for searching nearby amenities, e.g. input “500” represents 500m.
+#### 7.	/api/gotowater: This endpoint returns the best water fountain's location for the user with a radius chosen by the user. Upon successful retrieval and contextual and historical data analysis the following message will be returned.
+```
+{
+	"message": "success",
+	"lat": 51.4430356,
+	"lng": -114.8121884
+}
+```
+The sent coordinates are the current user location. Sent message format is as follows.
+```
+{
+	"token": " cd1f0d7032aacfad6c61e04bc0e11a03",
+	"lat": 51.4430356,
+	"lng": -114.8121884,
+	"radius": 100,
+}
+```
 
-User can rate 0-5 stars for Cleanness and Functionality in the facilities feedback form.
-<<<<<<< HEAD
-#### 3.3. Settings
-![Weight](/images/weight.PNG)
-=======
-#### 3.3.3. Settings
-![Weight](/images/weight.PNG) 
->>>>>>> baf7843111aeb028d4307d8b3477fb31be18ff51
+#### 8.	/api/benchfeedback: This endpoint adds the user's feedback for the corresponding amenity in the database to be used by the application for the suggesting to the users in the future. Upon successful storage following message will be sent.
+```
+{
+	"message": "success",
+}
+```
+The sent coordinates are the current user location. Sent message format is as follows.
+```
+{
+        "token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+        "lat": 51.223,
+        "lng": -114.223,
+        "rate": 2		
+}
+```
 
-User can perform the following actions: (i) change password and (ii) change weight.
+#### 9.	/api/waterfeedback: This endpoint adds the user's feedback for the corresponding amenity in the database to be used by the application for the suggesting to the users in the future. Upon successful storage following message will be sent.
+```
+{
+	"message": "success",
+}
+```
+The sent coordinates are the current user location. Sent message format is as follows.
+```
+{
+        "token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+        "lat": 51.223,
+        "lng": -114.223,
+        "rate": 2		
+}
+```
 
-**Example:** User can input a change the weight information by input a new value in the page, e.g. “50” represents 50kg.
-<<<<<<< HEAD
-#### 3.4. Statistics
-![Stat](/images/stat.PNG)
+#### 10. /api/toiletfeedback: This endpoint adds the user's feedback for the corresponding amenity in the database to be used by the application for the suggesting to the users in the future. Upon successful storage following message will be sent.
+```
+{
+	"message": "success",
+}
+```
+The sent coordinates are the current user location. Sent message format is as follows.
+```
+{
+        "token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+        "lat": 51.223,
+        "lng": -114.223,
+        "rate": 2		
+}
+```
 
-User can view the Calories burned Today, last 7 days, and last 30 days with progress bar and bar charts.
-#### 3.5. Logout
-User can logout the session.
+#### 11. This endpoint allows the user to change their account's password. Upon successful update following message will be sent.
+```
+{
+	"message": "success"
+}
+```
+Sent message format is as follows. The password is hashed using SHA256.
+```
+{
+        "token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+        "password": “8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918”
+	
+}
+```
 
-## Project Launch
-April 2022
+#### 12. /api/changeweight: This endpoint allows the user to change their weight in profile. Upon successful update following message will be sent.
+```
+{
+	"message": "success"
+}
+```
+Sent message format is as follows. The password is hashed using SHA256.
+```
+{
+        "token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+        "weight": 60
+	
+}
+```
+
+#### 13. /api/feedback: This endpoint adds the user's feedback and comment for the corresponding destination in the database to be used by other users for choosing the place in the future. Upon successful storage following message will be sent.
+```
+{
+	"message": "success"
+}
+```
+Sent message format is as follows. The reason that we store that name an type of the place as well as the coordinates is that currently there are events with the same coordinates and type to overcome this issue we store the name of the destination, as well.
+```
+{
+        "token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+        "lat": 51.223,
+        "lng": -114.223,
+        "rate": 2,
+        "name": “St. Andrew’s United Church”,
+        “type”: historical,
+	 “comment”: “Nice place”
+}
+```
+
+#### 14. /api/location_update: Receives the user's new location and insert it in the database to be used by the application for statistical analysis on the user's activity and presenting it to the user in the future. Upon successful storage following message will be sent.
+```
+{
+	"message": "success"
+}
+```
+Sent message format is as follows.
+```
+{
+	"token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+        "lat": 51.223,
+        "lng": -114.223
+}
+```
+#### 15. /api/get_stats: Returns the values for the amount of kilo Calories burnt by the user during the last 7 days, as well as the average kilo calories burnt during the last 30 days. Upon successful retrieval the following message will be sent.
+```
+{
+	"message": "success",
+	"weekly": [120, 123, 3500, 0, 0, 0, 5000],
+	"monthly": 1000
+}
+```
+Sent message format is as follows.
+```
+{
+	"token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+}
+
+```
+#### 16. /api/get_range_stats: This endpoint returns the average and aggregated as well as the individual amount of Calories that user burned during the period given. Upon successful retrieval the following message will be sent.
+```
+{
+	"message": "success",
+	"days": 6,
+	"data": [120, 123, 3500, 0, 0, 5000],
+	"average": 1243.23,
+	"total": 8454,
+}
+```
+Sent message format is as follows.
+```
+{
+      	"token": "cd1f0d7032aacfad6c61e04bc0e11a03",
+	“start”: “2022-03-13”,
+	“end”: “2022-03-16”,
+}
+```
+#### 17. /api/resetpassword: This endpoint is developed to allows the users to reset their password through sending are randomly generated sequence sent to the provided email upon registration through SMTP client. Upon successful update the following message will be sent.
+```
+{
+	"message": "success"
+}
+```
+Sent message format is as follows. Password is the new password that and SHA265 is performed on it.
+```
+
+{
+	"email": "amojdehi@gmail.com",
+	"password": “8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918”
+}
+```
 
 ## Supplementary Information
-- [Application Manual](https://arash-mozhdehi.gitbook.io/bike-assistants-mobile-application/start/splash-screen)
-=======
-#### 3.3.4. Statistics
-![Stat](/images/stat.PNG) 
-
-User can view the Calories burned Today, last 7 days, and last 30 days with progress bar and bar charts.
-#### 3.3.5. Logout
-User can logout the session.
-
-### 3.6. Authentication – Web App
-#### 3.6.1. Login 
-![Login_web](/images/login_web.PNG) 
-
-It is a responsive, secure, beautiful and animated login page. User is required to fill in username and password for login.
-
-### 3.7. Mapping Page – Web App
-![mapping](/images/mapping.PNG) 
-
-Web app user can track the movement of the mobile user and retrieve the information related to the trip.
-
-## 4. Project Launch
-April 2022
-
-## 5. Supplementary Information
-- [Application Manual](https://arash-mozhdehi.gitbook.io/bike-assistants-mobile-application/start/splash-screen)
-- [Web Application Manual](https://arash-mozhdehi.gitbook.io/bike-assistant/v/web-based-application/)
-- [Data Specifications](https://arash-mozhdehi.gitbook.io/databases-design/)
+- [Mobile Application Manual and Documentation]( https://arash-mozhdehi.gitbook.io/bike-assistant/v/mobile-application/)
+- [Web-based Application Manual and Documentation](https://arash-mozhdehi.gitbook.io/bike-assistant/v/web-based-application/)
+- [Database Documentation](https://arash-mozhdehi.gitbook.io/bike-assistant/)
+- [GitBiik Space](https://arash-mozhdehi.gitbook.io/bike-assistant/)
+- [API Documentation - GitBook](https://arash-mozhdehi.gitbook.io/restful-apis-tutorial/)
 - [API Documentation - Swagger](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0)
+- [Mobile UI GitHub Repo](https://github.com/ArashMozhdehi/ENGO-651-Final-Project-Mobile-UI)
+
+## Achievements of API Regarding the Project Requirements
+The API endpoint sets satisfy the following requirements for the ENGO 651 course project.
+
+1. "your final project must be sufficiently distinct from the labs in this course, and must be more complex than the labs." : This API is complex and has 17 endpoint and uses complex algorithms such as Q-Learning for Data Analytic. (Requirement #1)
+2. "must have a RESTful API back-end": The RESTful API back-end is powered by Flask library of python. (Requirement #3)
+3. "RESTful API must have authentication": The token is generated through the performing hash on the concatenation of the user's credentials and a salt value, to allow multiple login. (Requirement #4)
+4. "API must be documented in detail on GitHub with example uses": The API is documented thoroughly with examples using Gitbook, Swagger.io, and in GitHub. (Requirement #5)
+5. "must use at least one open data": This batch of endpoint uses the following open data sources: (Requirement #6)
+   * Open Calgary
+     * Parking lot for the bikes
+     * Historical sites
+     * Ungoing events in the city of Calgary (It only pick the events that are not ended yet)
+     * Calgary's historical sites
+     * Calgary's benches
+     * Calgary's wash rooms
+     * Calgary's water fountains
+     * Calgary's live traffic incidents
+     * Calgary's construction sites
+   * Google's APIs
+     * Google Maps SDKs
+     * Google Directions (For visualizing the bike-friendly route to the destination)
+     * Google Distance Matrix (For measuring the distance between the current location of the user and the destination)
+     * Google Geocoding (For finding the place based on the Zip Code)
+     * Google Geolocation (User's current location)
+     * Google Places (For auto-complete)
+6. "must use at least one live data set": It uses the location data from the IoT devices to provide statistical analysis on the user's activity and behavior, how much Calories they burn within a specific time range. (Requirement #7)
+7. "must perform data analytics using the following data sources": As mentioned in the previous bullet-point, it preforms statistical analysis on users' location provided by their phones(the historical data of the IoT device). These API's endpoint batches also perform analysis on the user's current location(the real-time data of an IoT devices), the data provided by the Open Calgary, e.g. toilets', water fountains', and benches' locations (the historical data) and search for the matches within a range(contextual geo-spatial data relevant to the data collected by the devices). In the next step using a Q-Learning-based algorithms tries to find the best toilet within the range using the users' feedbacks as reward.
+8. "solve a problem": The purpose of this API endpoint batch is to provide convenience (choosing the convenient amenities based on the users feedback) and safety (by providing safety feedback from the other users) for the users. (Requirement #10)
+
+## Achievements of Web-UI Regarding the Project Requirements
+This Web-Based application satisfies the following requirements for the ENGO 651 course project.
+1. "must have a mapping front-end" : The Google Map SDK is one of the APIs used for visualizing the locations on the map. (Requirements #2)
+2. "must use at least one live data set": It receives the messages published by the mobile application through MQTT protocol from the broker and visualizes the path, origin, destination and the current location. It also provides useful information about the the speed of the bicycle, remaining time and distance of the trip, as well as the total duration and distance of the trip. (Requirements #7)
+3. "must perform data analytics using the following data sources": It perform data analysis on the data from Google's Martix API, Google Direction (contextual geospatial data) and IoT devices' location and speed (Live Data) , and visualizes them on the map using the Info Windows and Polylines. (Requirements #8)
+4. "the front-end must be interactive": It provides a responsive, interactive(Using various JS functions as well as the CSS powered animations), user-friendly, aesthetically pleasing, animated UI. (Requirements #9)
+5. "solve a problem": The purpose of this application, as part of the whole software suite, is to provide safety for the users. (Requirements #10)
+
+
+## Project Launch
+February 2022
