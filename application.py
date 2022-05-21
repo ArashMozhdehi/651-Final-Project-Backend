@@ -29,14 +29,7 @@ Session(app)
 kf = KalmanFilter();
 
 config = {
-  "apiKey": "AIzaSyCmj02DX8-_GpQiMc35-VUis84LLk4FGcU",
-  "authDomain": "engo-651-final-project-backend.firebaseapp.com",
-  "projectId": "engo-651-final-project-backend",
-  "storageBucket": "engo-651-final-project-backend.appspot.com",
-  "messagingSenderId": "71557889320",
-  "appId": "1:71557889320:web:6caaf6c9f4ff048656641d",
-  "measurementId": "G-8N04YJH53F",
-  "databaseURL": "https://engo-651-final-project-default-rtdb.firebaseio.com/"
+
 }
 
 firbase = pyrebase.initialize_app(config)
@@ -53,7 +46,7 @@ database = firbase.database()
 
 
 
-DATABASE_URL = "postgresql://icnbjzbcznpgfp:a952b3bdc51644c4fb224f2dd8a7c358bc6a6e2fcf80a57a5e0d4956808d02a6@ec2-54-226-18-238.compute-1.amazonaws.com:5432/dbeqq9egku7fm5"
+DATABASE_URL = ""
 engine = create_engine(DATABASE_URL)
 db = scoped_session(sessionmaker(bind=engine))
 
