@@ -18,7 +18,7 @@ The “Bike Assistant” project provides a one-stop service for cyclists in Cal
 
 “Bike Assistant” is a full-stack software suite consisting of RESTful Web API endpoint, a Relational Database, a NoSQL Database, a User-Friendly Mobile Application, as well as a User-Friendly Web-Based User Interface. As a powerful software suite merits a fine documentation and tutorial, we used different platforms, GitBook, Swagger, and GitHub’s readme, for the documentation. In this software suite we took advantage advances in **Artificial Intelligence (AI)** and used a **Machine Learning (ML)** algorithm, **Q-Learning**, to improve the user’s experience by providing them with most suited amenities based on their location by performing historical and contextual data analysis. For simplification and noise reduction and smoothing of trajectories, we used **Douglas–Peucker** algorithm and **Kalman filtering** technique.
 
-Please visit the other repository [Mobile Application for Bike Assistant](https://github.com/ArashMozhdehi/ENGO-651-Final-Project-Mobile-UI) for the files and descriptions of the Mobile Application. 
+Please visit the other repository [Mobile Application for Bike Assistant](https://github.com/ArashMozhdehi/651-Final-Project-Mobile-UI) for the files and descriptions of the Mobile Application. 
 
 ## UML Architectural Design
 The Figure 1 illustrates the archetectural design sigram of this Software Suite.
