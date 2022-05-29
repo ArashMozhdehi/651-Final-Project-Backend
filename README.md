@@ -67,6 +67,7 @@ The compentents of this sofeware suite are, as follows:
 - To prevent **Dictionary, Rainbow, and impade Brute Force attacks**, we used an information security method of Salt concatination and Hasing using SHA256.
 ### 3. Web Application
 - HTML, CSS and JS for asynchronous communication and interactive and responsive front-end.
+- 
 - Web-UI consist of 12 html pages, 9 CSS stylesheet files. 8 .js script files in JavaScript with over **5,000 lines of code**. 
 - It also consists of 18 routes and methods in Python.
 - Material UI and Bootstrap 5 for aesthetic an interactive UI design.
@@ -457,10 +458,10 @@ Sent message format is as follows. Password is the new password that and SHA265 
 - [GitBiik Space](https://arash-mozhdehi.gitbook.io/bike-assistant/)
 - [API Documentation - GitBook](https://arash-mozhdehi.gitbook.io/restful-apis-tutorial/)
 - [API Documentation - Swagger](https://app.swaggerhub.com/apis-docs/uofcengo/BikeAssistance/1.0.0)
-- [Mobile UI GitHub Repo](https://github.com/ArashMozhdehi/ENGO-651-Final-Project-Mobile-UI)
+- [Mobile UI GitHub Repo](https://github.com/ArashMozhdehi/651-Final-Project-Mobile-UI)
 
 ## Achievements of API Regarding the Project Requirements
-The API endpoint sets satisfy the following requirements for the ENGO 651 course project.
+The API endpoint sets satisfy the following requirements for the 651 course project.
 
 1. "your final project must be sufficiently distinct from the labs in this course, and must be more complex than the labs." : This API is complex and has 17 endpoint and uses complex algorithms such as Q-Learning for Data Analytic. (Requirement #1)
 2. "must have a RESTful API back-end": The RESTful API back-end is powered by Flask library of python. (Requirement #3)
